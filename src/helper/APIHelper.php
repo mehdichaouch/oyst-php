@@ -24,13 +24,19 @@ abstract class APIHelper
     private $apiKey;
 
     /**
+     * @var string
+     */
+    private $userAgent;
+
+    /**
      * @param string $apiEndPoint
      * @param string $apiKey
      */
-    final public function __construct($apiEndPoint, $apiKey)
+    final public function __construct($apiEndPoint, $apiKey, $userAgent)
     {
         $this->apiEndPoint = $apiEndPoint;
         $this->apiKey      = $apiKey;
+        $this->userAgent   = $userAgent;
     }
 
     /**
@@ -38,7 +44,7 @@ abstract class APIHelper
      * @param string $url
      * @param array  $data
      *
-     * @return array
+     * @return $response The result on success, false on failure
      *
      * @throws Exception
      */
@@ -52,27 +58,45 @@ abstract class APIHelper
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($ch, CURLOPT_TIMEOUT, 2000);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
         curl_setopt($ch, CURLOPT_HTTPHEADER, array(
             'Content-Type: application/json',
             'Content-Length: '.($data ? strlen($dataJson) : 0),
-            'User-Agent: Oyst API',
+            'User-Agent: '.$this->userAgent,
             'Authorization: Bearer '.$this->apiKey
         ));
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
 
         if ($data && in_array($method, array("POST", "PUT"))) {
             curl_setopt($ch, CURLOPT_POSTFIELDS, $dataJson);
         }
 
         $response = curl_exec($ch);
-        $info     = curl_getinfo($ch);
 
         curl_close($ch);
 
-        if ($response === false) {
-            throw new \Exception(curl_error($ch), $info['http_code']);
+        return $response;
+    }
+
+    /**
+     * Unset empty values
+     *
+     * @param $data
+     *
+     * @return array
+     */
+    final protected function cleanData($data)
+    {
+        foreach ($data as $field => $value) {
+            if (!is_array($value) && !is_integer($value)) {
+                if (empty($value) || !$value) {
+                    unset($data[$field]);
+                }
+            }
+            if (is_array($value) && empty($value)) {
+                unset($data[$field]);
+            }
         }
 
-        return $response;
+        return $data;
     }
 }

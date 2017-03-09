@@ -51,7 +51,8 @@ class CatalogAPI extends APIHelper
      */
     public function productPostRequest($data)
     {
-        $url = 'products';
+        $url  = 'products';
+        $data = array('products' => $data);
 
         return $this->send('POST', $url, $data);
     }
