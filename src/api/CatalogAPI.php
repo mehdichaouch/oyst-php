@@ -15,45 +15,61 @@ require_once(__DIR__.'/../helper/APIHelper.php');
 class CatalogAPI extends APIHelper
 {
     /**
-     * Catalog API
+     * POST /products
      *
-     * @param $data
+     * @param array|Product $postData An array of Product or a Product
      *
      * @return array
      */
-    public function postCatalog($data)
+    public function postProduct($postData)
     {
-        $url = 'products';
+        $url  = 'products';
+        $data = array();
+
+        if ($postData instanceof Product) {
+            $product = $postData->toArray();
+
+            $data = array('product' => $product);
+        } else {
+            $products = array();
+
+            /** @var ArrayableInterface $product */
+            foreach ($postData as $product) {
+                $products[] = $product->toArray();
+            }
+
+            $data = array('products' => $products);
+        }
 
         return $this->send('POST', $url, $data);
     }
 
     /**
-     * Catalog API
+     * PUT /products/{id}
      *
-     * @param $data
+     * @param Product $product
      *
      * @return array
      */
-    public function putCatalog($data)
+    public function putProduct(Product $product)
     {
-        $url = 'products';
+        $url  = 'products/'.$product->getId();
+        $data = $product->toArray();
 
         return $this->send('PUT', $url, $data);
     }
 
     /**
-     * Catalog API
+     * DELETE /products/{id}
      *
-     * @param $data
+     * @param string $productId
      *
      * @return array
      */
-    public function productPostRequest($data)
+    public function deleteProduct($productId)
     {
-        $url  = 'products';
-        $data = array('products' => $data);
+        $url  = 'products/'.$productId;
 
-        return $this->send('POST', $url, $data);
+        return $this->send('DELETE', $url);
     }
 }

@@ -31,6 +31,7 @@ abstract class APIHelper
     /**
      * @param string $apiEndPoint
      * @param string $apiKey
+     * @param string $userAgent
      */
     final public function __construct($apiEndPoint, $apiKey, $userAgent)
     {
@@ -44,7 +45,7 @@ abstract class APIHelper
      * @param string $url
      * @param array  $data
      *
-     * @return $response The result on success, false on failure
+     * @return mixed $response The result on success, false on failure
      *
      * @throws Exception
      */

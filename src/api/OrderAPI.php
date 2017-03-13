@@ -15,7 +15,7 @@ require_once(__DIR__.'/../helper/APIHelper.php');
 class OrderAPI extends APIHelper
 {
     /**
-     * Order API
+     * GET /orders
      *
      * @param $data
      *
@@ -29,7 +29,7 @@ class OrderAPI extends APIHelper
     }
 
     /**
-     * Order API
+     * PUT /orders/{id}
      *
      * @param $data
      *

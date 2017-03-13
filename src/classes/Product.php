@@ -1,7 +1,22 @@
 <?php
 
-class Product
+/**
+ * Class Product
+ *
+ * PHP version 5.2
+ *
+ * @category Oyst
+ * @author   Oyst <dev@oyst.com>
+ * @license  Copyright 2017, Oyst
+ * @link     http://www.oyst.com
+ */
+class Product implements ArrayableInterface
 {
+    /**
+     * @var int
+     */
+    private $id;
+
     /**
      * @var string
      */
@@ -156,6 +171,22 @@ class Product
     }
 
     /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
      * @return string
      */
     private function getRef()
@@ -244,9 +275,7 @@ class Product
     }
 
     /**
-     * Either 'new', 'reused' or 'refurbished'
-     *
-     * @param string $condition
+     * @param string $condition Either 'new', 'reused' or 'refurbished'
      */
     public function setCondition($condition)
     {
@@ -294,9 +323,7 @@ class Product
     }
 
     /**
-     * Custom array
-     *
-     * @param array $meta
+     * @param array $meta A custom array
      */
     public function setMeta($meta)
     {
@@ -312,9 +339,7 @@ class Product
     }
 
     /**
-     * Array of string
-     *
-     * @param array $tags
+     * @param array $tags An array of string
      */
     public function setTags($tags)
     {
@@ -430,13 +455,11 @@ class Product
      */
     private function getCategories()
     {
-        return $this->collectionToArray($this->categories);
+        return CollectionHelper::collectionToArray($this->categories);
     }
 
     /**
-     * Array of Combination
-     *
-     * @param array $categories
+     * @param array $categories An array of Combination
      */
     public function setCategories($categories)
     {
@@ -488,7 +511,7 @@ class Product
      */
     private function getShipments()
     {
-        return $this->collectionToArray($this->shipments);
+        return CollectionHelper::collectionToArray($this->shipments);
     }
 
     /**
@@ -594,7 +617,7 @@ class Product
      */
     private function getImages()
     {
-        return $this->collectionToArray($this->images);
+        return CollectionHelper::collectionToArray($this->images);
     }
 
     /**
@@ -638,7 +661,7 @@ class Product
      */
     private function getCombinations()
     {
-        return $this->collectionToArray($this->combinations);
+        return CollectionHelper::collectionToArray($this->combinations);
     }
 
     /**
@@ -657,22 +680,6 @@ class Product
     public function addCombination(Combination $combination)
     {
         $this->combinations[] = $combination;
-    }
-
-    /**
-     * @param $collection
-     *
-     * @return array
-     */
-    private function collectionToArray($collection)
-    {
-        $data = array();
-
-        foreach ($collection as $element) {
-            $data[] = $element->toArray();
-        }
-
-        return $data;
     }
 
     /**
