@@ -18,16 +18,25 @@ class Category implements ArrayableInterface
     private $ref;
 
     /**
-     * @var array
+     * @var bool
      */
-    private $titles;
+    private $main;
+
+    /**
+     * @var string
+     */
+    private $title;
 
     /**
      * @param string $ref
+     * @param string $title
+     * @param bool   $isMain
      */
-    public function __construct($ref)
+    public function __construct($ref, $title, $isMain = false)
     {
-        $this->ref = $ref;
+        $this->ref    = $ref;
+        $this->title  = $title;
+        $this->isMain = $isMain;
     }
 
     /**
@@ -47,23 +56,35 @@ class Category implements ArrayableInterface
     }
 
     /**
-     * @return array
+     * @return bool
      */
-    private function getTitles()
+    public function isMain()
     {
-        return $this->titles;
+        return $this->main;
     }
 
     /**
-     * @param string $name
-     * @param string $lang
+     * @param bool $main
      */
-    public function addTitle($name, $lang)
+    public function setMain($main)
     {
-        $this->titles[] = array(
-            'name' => $name,
-            'lang' => $lang
-        );
+        $this->main = $main;
+    }
+
+    /**
+     * @return string
+     */
+    private function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * @param string $title
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
     }
 
     /**
@@ -72,8 +93,9 @@ class Category implements ArrayableInterface
     public function toArray()
     {
         $category = array(
-            'titles'    => $this->getTitles(),
-            'reference' => $this->getRef()
+            'reference' => $this->getRef(),
+            'is_main'   => $this->isMain(),
+            'title'     => $this->getTitle(),
         );
 
         return $category;

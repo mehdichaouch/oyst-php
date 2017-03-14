@@ -15,7 +15,7 @@ class Shipment implements ArrayableInterface
     /**
      * @var string
      */
-    private $area;
+    private $zone;
 
     /**
      * @var string
@@ -23,27 +23,12 @@ class Shipment implements ArrayableInterface
     private $carrier;
 
     /**
-     * @var int
+     * @var string
      */
     private $delay;
 
     /**
      * @var string
-     */
-    private $method;
-
-    /**
-     * @var int
-     */
-    private $quantity;
-
-    /**
-     * @var int
-     */
-    private $vat;
-
-    /**
-     * @var int
      */
     private $value;
 
@@ -55,17 +40,17 @@ class Shipment implements ArrayableInterface
     /**
      * @return string
      */
-    private function getArea()
+    private function getZone()
     {
-        return $this->area;
+        return $this->zone;
     }
 
     /**
-     * @param string $area
+     * @param string $zone
      */
-    public function setArea($area)
+    public function setZone($zone)
     {
-        $this->area = $area;
+        $this->zone = $zone;
     }
 
     /**
@@ -85,7 +70,7 @@ class Shipment implements ArrayableInterface
     }
 
     /**
-     * @return int
+     * @return string
      */
     private function getDelay()
     {
@@ -93,7 +78,7 @@ class Shipment implements ArrayableInterface
     }
 
     /**
-     * @param int $delay
+     * @param string $delay
      */
     public function setDelay($delay)
     {
@@ -103,61 +88,13 @@ class Shipment implements ArrayableInterface
     /**
      * @return string
      */
-    private function getMethod()
-    {
-        return $this->method;
-    }
-
-    /**
-     * @param string $method
-     */
-    public function setMethod($method)
-    {
-        $this->method = $method;
-    }
-
-    /**
-     * @return int
-     */
-    private function getQuantity()
-    {
-        return $this->quantity;
-    }
-
-    /**
-     * @param int $quantity
-     */
-    public function setQuantity($quantity)
-    {
-        $this->quantity = $quantity;
-    }
-
-    /**
-     * @return int
-     */
-    private function getVat()
-    {
-        return $this->vat;
-    }
-
-    /**
-     * @param int $vat
-     */
-    public function setVat($vat)
-    {
-        $this->vat = $vat;
-    }
-
-    /**
-     * @return int
-     */
     private function getValue()
     {
         return $this->value;
     }
 
     /**
-     * @param int $value
+     * @param string $value
      */
     public function setValue($value)
     {
@@ -180,16 +117,16 @@ class Shipment implements ArrayableInterface
         $this->currency = $currency;
     }
 
+    /**
+     * @return array
+     */
     public function toArray()
     {
         $shipment = array(
-            'area'            => $this->getArea(),
-            'carrier'         => $this->getCarrier(),
-            'delay'           => $this->getDelay(),
-            'method'          => $this->getMethod(),
-            'quantity'        => $this->getQuantity(),
-            'vat'             => $this->getVat(),
-            'shipment_amount' => array(
+            'zone'    => $this->getZone(),
+            'carrier' => $this->getCarrier(),
+            'delay'   => $this->getDelay(),
+            'amount'  => array(
                 'value'    => $this->getValue(),
                 'currency' => $this->getCurrency(),
             ),

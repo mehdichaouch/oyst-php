@@ -13,31 +13,29 @@
 class Product implements ArrayableInterface
 {
     /**
-     * @var int
-     */
-    private $id;
-
-    /**
+     * Mandatory
+     *
      * @var string
      */
     private $ref;
 
     /**
-     * @var string
-     */
-    private $merchantRef;
-
-    /**
+     * Optional
+     *
      * @var bool
      */
     private $active;
 
     /**
+     * Optional
+     *
      * @var bool
      */
     private $materialized;
 
     /**
+     * Mandatory
+     *
      * @var string
      */
     private $title;
@@ -60,32 +58,14 @@ class Product implements ArrayableInterface
     /**
      * @var array
      */
-    private $meta;
-
-    /**
-     * @var array
-     */
     private $tags;
 
     /**
-     * @var Tax
-     */
-    private $excludingTax;
-
-    /**
+     * Mandatory
+     *
      * @var Tax
      */
     private $includingTax;
-
-    /**
-     * @var Tax
-     */
-    private $saleExcludingTax;
-
-    /**
-     * @var Tax
-     */
-    private $saleIncludingTax;
 
     /**
      * @var int
@@ -123,24 +103,29 @@ class Product implements ArrayableInterface
     private $availableQuantity;
 
     /**
-     * @var int
-     */
-    private $minimumOrderableQuantity;
-
-    /**
      * @var string
      */
-    private $outStockMessage;
-
-    /**
-     * @var string
-     */
-    private $inStockMessage;
+    private $weight;
 
     /**
      * @var bool
      */
-    private $orderableOutStock;
+    private $discounted;
+
+    /**
+     * @var string
+     */
+    private $ean;
+
+    /**
+     * @var string
+     */
+    private $upc;
+
+    /**
+     * @var string
+     */
+    private $isbn;
 
     /**
      * @var array
@@ -155,35 +140,23 @@ class Product implements ArrayableInterface
     /**
      * @var array
      */
-    private $combinations;
+    private $relatedProducts;
+
+    /**
+     * @var array
+     */
+    private $variations;
 
     public function __construct()
     {
-        $this->combinations     = array();
-        $this->excludingTax     = array();
-        $this->includingTax     = array();
-        $this->saleExcludingTax = array();
-        $this->saleIncludingTax = array();
-        $this->categories       = array();
-        $this->shipments        = array();
-        $this->tags             = array();
-        $this->images           = array();
-    }
-
-    /**
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param int $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
+        $this->condition       = 'new';
+        $this->discounted      = false;
+        $this->categories      = array();
+        $this->shipments       = array();
+        $this->tags            = array();
+        $this->images          = array();
+        $this->relatedProducts = array();
+        $this->variations      = array();
     }
 
     /**
@@ -203,25 +176,9 @@ class Product implements ArrayableInterface
     }
 
     /**
-     * @return string
-     */
-    private function getMerchantRef()
-    {
-        return $this->merchantRef;
-    }
-
-    /**
-     * @param string $merchantRef
-     */
-    public function setMerchantRef($merchantRef)
-    {
-        $this->merchantRef = $merchantRef;
-    }
-
-    /**
      * @return bool
      */
-    public function isActive()
+    private function isActive()
     {
         return $this->active;
     }
@@ -237,7 +194,7 @@ class Product implements ArrayableInterface
     /**
      * @return bool
      */
-    public function isMaterialized()
+    private function isMaterialized()
     {
         return $this->materialized;
     }
@@ -312,22 +269,6 @@ class Product implements ArrayableInterface
     public function setDescription($description)
     {
         $this->description = $description;
-    }
-
-    /**
-     * @return array
-     */
-    public function getMeta()
-    {
-        return $this->meta;
-    }
-
-    /**
-     * @param array $meta A custom array
-     */
-    public function setMeta($meta)
-    {
-        $this->meta = $meta;
     }
 
     /**
@@ -459,7 +400,7 @@ class Product implements ArrayableInterface
     }
 
     /**
-     * @param array $categories An array of Combination
+     * @param array $categories An array of Category
      */
     public function setCategories($categories)
     {
@@ -549,67 +490,83 @@ class Product implements ArrayableInterface
     }
 
     /**
-     * @return int
-     */
-    private function getMinimumOrderableQuantity()
-    {
-        return $this->minimumOrderableQuantity;
-    }
-
-    /**
-     * @param int $minimumOrderableQuantity
-     */
-    public function setMinimumOrderableQuantity($minimumOrderableQuantity)
-    {
-        $this->minimumOrderableQuantity = $minimumOrderableQuantity;
-    }
-
-    /**
      * @return string
      */
-    private function getOutStockMessage()
+    private function getWeight()
     {
-        return $this->outStockMessage;
+        return $this->weight;
     }
 
     /**
-     * @param string $outStockMessage
+     * @param string $weight
      */
-    public function setOutStockMessage($outStockMessage)
+    public function setWeight($weight)
     {
-        $this->outStockMessage = $outStockMessage;
-    }
-
-    /**
-     * @return string
-     */
-    private function getInStockMessage()
-    {
-        return $this->inStockMessage;
-    }
-
-    /**
-     * @param string $inStockMessage
-     */
-    public function setInStockMessage($inStockMessage)
-    {
-        $this->inStockMessage = $inStockMessage;
+        $this->weight = $weight;
     }
 
     /**
      * @return bool
      */
-    private function isOrderableOutStock()
+    private function isDiscounted()
     {
-        return $this->orderableOutStock;
+        return $this->discounted;
     }
 
     /**
-     * @param bool $orderableOutStock
+     * @param bool $discounted
      */
-    public function setOrderableOutStock($orderableOutStock)
+    public function setDiscounted($discounted)
     {
-        $this->orderableOutStock = $orderableOutStock;
+        $this->discounted = $discounted;
+    }
+
+    /**
+     * @return string
+     */
+    private function getEan()
+    {
+        return $this->ean;
+    }
+
+    /**
+     * @param string $ean
+     */
+    public function setEan($ean)
+    {
+        $this->ean = $ean;
+    }
+
+    /**
+     * @return string
+     */
+    private function getUpc()
+    {
+        return $this->upc;
+    }
+
+    /**
+     * @param string $upc
+     */
+    public function setUpc($upc)
+    {
+        $this->upc = $upc;
+    }
+
+    /**
+     * @return string
+     */
+    private function getIsbn()
+    {
+        return $this->isbn;
+    }
+
+    /**
+     * @param string $isbn
+     */
+    public function setIsbn($isbn)
+    {
+        $this->isbn = $isbn;
     }
 
     /**
@@ -617,11 +574,11 @@ class Product implements ArrayableInterface
      */
     private function getImages()
     {
-        return CollectionHelper::collectionToArray($this->images);
+        return $this->images;
     }
 
     /**
-     * Array of Image
+     * Array of string
      *
      * @param array $images
      */
@@ -635,7 +592,7 @@ class Product implements ArrayableInterface
      */
     public function addImage($url)
     {
-        $this->images[] = new Image($url);
+        $this->images[] = $url;
     }
 
     /**
@@ -659,27 +616,51 @@ class Product implements ArrayableInterface
     /**
      * @return array
      */
-    private function getCombinations()
+    private function getRelatedProducts()
     {
-        return CollectionHelper::collectionToArray($this->combinations);
+        return $this->relatedProducts;
     }
 
     /**
-     * Array of Combination
+     * @param array $relatedProducts
+     */
+    public function setRelatedProducts($relatedProducts)
+    {
+        $this->relatedProducts = $relatedProducts;
+    }
+
+    /**
+     * @param string $ref
+     */
+    public function addRelatedProduct($ref)
+    {
+        $this->relatedProducts[] = $ref;
+    }
+
+    /**
+     * @return array
+     */
+    private function getVariations()
+    {
+        return CollectionHelper::collectionToArray($this->variations);
+    }
+
+    /**
+     * Array of Product
      *
-     * @param array $combinations
+     * @param array $variations
      */
-    public function setCombinations($combinations)
+    public function setVariations($variations)
     {
-        $this->combinations = $combinations;
+        $this->variations = $variations;
     }
 
     /**
-     * @param Combination $combination
+     * @param Product $variation
      */
-    public function addCombination(Combination $combination)
+    public function addVariation(Product $variation)
     {
-        $this->combinations[] = $combination;
+        $this->variations[] = $variation;
     }
 
     /**
@@ -689,7 +670,6 @@ class Product implements ArrayableInterface
     {
         $product = array(
             'reference'                   => $this->getRef(),
-            'merchant_reference'          => $this->getMerchantRef(),
             'is_active'                   => $this->isActive(),
             'is_materialized'             => $this->isMaterialized(),
             'title'                       => $this->getTitle(),
@@ -702,20 +682,17 @@ class Product implements ArrayableInterface
             'sale_amount_excluding_taxes' => $this->getSaleExcludingTax(),
             'sale_amount_including_taxes' => $this->getSaleIncludingTax(),
             'vat'                         => $this->getVat(),
-            'meta'                        => $this->getMeta(),
             'url'                         => $this->getUrl(),
             'categories'                  => $this->getCategories(),
             'category'                    => $this->getMainCategory(),
             'manufacturer'                => $this->getManufacturer(),
             'shipments'                   => $this->getShipments(),
             'available_quantity'          => $this->getAvailableQuantity(),
-            'minimum_orderable_quantity'  => $this->getMinimumOrderableQuantity(),
-            'outstock_message'            => $this->getOutStockMessage(),
-            'instock_message'             => $this->getInStockMessage(),
-            'is_orderable_outstock'       => $this->isOrderableOutStock(),
+            'is_discounted'               => $this->isDiscounted(),
             'images'                      => $this->getImages(),
             'informations'                => $this->getInformation(),
-            'skus'                        => $this->getCombinations(),
+            'related_products'            => $this->getRelatedProducts(),
+            'variations'                  => $this->getVariations(),
         );
 
         return $product;

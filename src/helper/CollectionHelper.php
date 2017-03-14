@@ -28,4 +28,23 @@ class CollectionHelper
 
         return $data;
     }
+
+    /**
+     * Unset empty values
+     *
+     * @param array $data
+     */
+    static public function cleanData(&$data)
+    {
+        foreach ($data as $field => $value) {
+            if (!is_array($value) && !is_integer($value)) {
+                if (empty($value) || !$value) {
+                    unset($data[$field]);
+                }
+            }
+            if (is_array($value) && empty($value)) {
+                unset($data[$field]);
+            }
+        }
+    }
 }
