@@ -13,11 +13,15 @@
 class Tax implements ArrayableInterface
 {
     /**
+     * Mandatory
+     *
      * @var int
      */
     private $value;
 
     /**
+     * Mandatory
+     *
      * @var string
      */
     private $currency;

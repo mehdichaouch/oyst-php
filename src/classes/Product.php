@@ -41,21 +41,29 @@ class Product implements ArrayableInterface
     private $title;
 
     /**
+     * Optional
+     *
      * @var string
      */
     private $condition;
 
     /**
+     * Optional
+     *
      * @var string
      */
     private $shortDescription;
 
     /**
+     * Optional
+     *
      * @var string
      */
     private $description;
 
     /**
+     * Optional
+     *
      * @var array
      */
     private $tags;
@@ -68,81 +76,106 @@ class Product implements ArrayableInterface
     private $includingTax;
 
     /**
-     * @var int
-     */
-    private $vat;
-
-    /**
+     * Optional
+     *
      * @var string
      */
     private $url;
 
     /**
+     * Mandatory
+     *
      * @var array
      */
     private $categories;
 
     /**
-     * @var Category
-     */
-    private $mainCategory;
-
-    /**
+     * Optional
+     *
      * @var string
      */
     private $manufacturer;
 
     /**
+     * Optional
+     *
      * @var array
      */
     private $shipments;
 
     /**
+     * Optional
+     *
+     * @var string
+     */
+    private $size;
+
+    /**
+     * Optional
+     *
      * @var int
      */
     private $availableQuantity;
 
     /**
+     * Optional
+     *
      * @var string
      */
     private $weight;
 
     /**
+     * Optional
+     *
      * @var bool
      */
     private $discounted;
 
     /**
+     * Optional
+     *
      * @var string
      */
     private $ean;
 
     /**
+     * Optional
+     *
      * @var string
      */
     private $upc;
 
     /**
+     * Optional
+     *
      * @var string
      */
     private $isbn;
 
     /**
+     * Mandatory
+     *
      * @var array
      */
     private $images;
 
     /**
+     * Optional
+     *
      * @var array
      */
     private $information;
 
     /**
+     * Optional
+     *
      * @var array
      */
     private $relatedProducts;
 
     /**
+     * Optional
+     *
      * @var array
      */
     private $variations;
@@ -298,22 +331,6 @@ class Product implements ArrayableInterface
     /**
      * @return Tax
      */
-    private function getExcludingTax()
-    {
-        return $this->excludingTax;
-    }
-
-    /**
-     * @param Tax $excludingTax
-     */
-    public function setExcludingTax($excludingTax)
-    {
-        $this->excludingTax = $excludingTax;
-    }
-
-    /**
-     * @return Tax
-     */
     private function getIncludingTax()
     {
         return $this->includingTax;
@@ -325,54 +342,6 @@ class Product implements ArrayableInterface
     public function setIncludingTax($includingTax)
     {
         $this->includingTax = $includingTax;
-    }
-
-    /**
-     * @return Tax
-     */
-    private function getSaleExcludingTax()
-    {
-        return $this->saleExcludingTax;
-    }
-
-    /**
-     * @param Tax $saleExcludingTax
-     */
-    public function setSaleExcludingTax($saleExcludingTax)
-    {
-        $this->saleExcludingTax = $saleExcludingTax;
-    }
-
-    /**
-     * @return Tax
-     */
-    private function getSaleIncludingTax()
-    {
-        return $this->saleIncludingTax;
-    }
-
-    /**
-     * @param Tax $saleIncludingTax
-     */
-    public function setSaleIncludingTax($saleIncludingTax)
-    {
-        $this->saleIncludingTax = $saleIncludingTax;
-    }
-
-    /**
-     * @return int
-     */
-    private function getVat()
-    {
-        return $this->vat;
-    }
-
-    /**
-     * @param int $vat
-     */
-    public function setVat($vat)
-    {
-        $this->vat = $vat;
     }
 
     /**
@@ -416,22 +385,6 @@ class Product implements ArrayableInterface
     }
 
     /**
-     * @return Category
-     */
-    private function getMainCategory()
-    {
-        return $this->mainCategory;
-    }
-
-    /**
-     * @param Category $mainCategory
-     */
-    public function setMainCategory($mainCategory)
-    {
-        $this->mainCategory = $mainCategory;
-    }
-
-    /**
      * @return string
      */
     private function getManufacturer()
@@ -471,6 +424,22 @@ class Product implements ArrayableInterface
     public function addShipment(Shipment $shipment)
     {
         $this->shipments[] = $shipment;
+    }
+
+    /**
+     * @return string
+     */
+    private function getSize()
+    {
+        return $this->size;
+    }
+
+    /**
+     * @param string $size
+     */
+    public function setSize($size)
+    {
+        $this->size = $size;
     }
 
     /**
@@ -677,18 +646,18 @@ class Product implements ArrayableInterface
             'short_description'           => $this->getShortDescription(),
             'description'                 => $this->getDescription(),
             'tags'                        => $this->getTags(),
-            'amount_excluding_taxes'      => $this->getExcludingTax(),
             'amount_including_taxes'      => $this->getIncludingTax(),
-            'sale_amount_excluding_taxes' => $this->getSaleExcludingTax(),
-            'sale_amount_including_taxes' => $this->getSaleIncludingTax(),
-            'vat'                         => $this->getVat(),
             'url'                         => $this->getUrl(),
             'categories'                  => $this->getCategories(),
-            'category'                    => $this->getMainCategory(),
             'manufacturer'                => $this->getManufacturer(),
             'shipments'                   => $this->getShipments(),
+            'size'                        => $this->getSize(),
             'available_quantity'          => $this->getAvailableQuantity(),
+            'weight'                      => $this->getWeight(),
             'is_discounted'               => $this->isDiscounted(),
+            'ean'                         => $this->getEan(),
+            'upc'                         => $this->getUpc(),
+            'isbn'                        => $this->getIsbn(),
             'images'                      => $this->getImages(),
             'informations'                => $this->getInformation(),
             'related_products'            => $this->getRelatedProducts(),

@@ -67,7 +67,7 @@ abstract class APIHelper
             'Authorization: Bearer '.$this->apiKey
         ));
 
-        if ($data && in_array($method, array("POST", "PUT"))) {
+        if ($data && in_array($method, array('POST', 'PUT'))) {
             curl_setopt($ch, CURLOPT_POSTFIELDS, $dataJson);
         }
 

@@ -13,16 +13,22 @@
 class Category implements ArrayableInterface
 {
     /**
+     * Optional
+     *
      * @var string
      */
     private $ref;
 
     /**
+     * Mandatory
+     *
      * @var bool
      */
     private $main;
 
     /**
+     * Optional
+     *
      * @var string
      */
     private $title;
