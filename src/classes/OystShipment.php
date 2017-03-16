@@ -1,7 +1,9 @@
 <?php
 
+require_once(__DIR__.'/../../autoload.php');
+
 /**
- * Class Shipment
+ * Class OystShipment
  *
  * PHP version 5.2
  *
@@ -10,7 +12,7 @@
  * @license  Copyright 2017, Oyst
  * @link     http://www.oyst.com
  */
-class Shipment implements ArrayableInterface
+class OystShipment implements OystArrayInterface
 {
     /**
      * @var string

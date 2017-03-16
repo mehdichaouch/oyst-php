@@ -1,7 +1,9 @@
 <?php
 
+require_once(__DIR__.'/../../autoload.php');
+
 /**
- * Class Product
+ * Class OystProduct
  *
  * PHP version 5.2
  *
@@ -10,7 +12,7 @@
  * @license  Copyright 2017, Oyst
  * @link     http://www.oyst.com
  */
-class Product implements ArrayableInterface
+class OystProduct implements OystArrayInterface
 {
     /**
      * Mandatory
@@ -71,9 +73,9 @@ class Product implements ArrayableInterface
     /**
      * Mandatory
      *
-     * @var Tax
+     * @var OystPrice
      */
-    private $includingTax;
+    private $amountIncludingTax;
 
     /**
      * Optional
@@ -329,19 +331,19 @@ class Product implements ArrayableInterface
     }
 
     /**
-     * @return Tax
+     * @return OystPrice
      */
-    private function getIncludingTax()
+    private function getAmountIncludingTax()
     {
-        return $this->includingTax;
+        return $this->amountIncludingTax;
     }
 
     /**
-     * @param Tax $includingTax
+     * @param OystPrice $amountIncludingTax
      */
-    public function setIncludingTax($includingTax)
+    public function setAmountIncludingTax($amountIncludingTax)
     {
-        $this->includingTax = $includingTax;
+        $this->amountIncludingTax = $amountIncludingTax;
     }
 
     /**
@@ -365,7 +367,7 @@ class Product implements ArrayableInterface
      */
     private function getCategories()
     {
-        return CollectionHelper::collectionToArray($this->categories);
+        return OystCollectionHelper::collectionToArray($this->categories);
     }
 
     /**
@@ -377,9 +379,9 @@ class Product implements ArrayableInterface
     }
 
     /**
-     * @param Category $category
+     * @param OystCategory $category
      */
-    public function addCategory(Category $category)
+    public function addCategory(OystCategory $category)
     {
         $this->categories[] = $category;
     }
@@ -405,7 +407,7 @@ class Product implements ArrayableInterface
      */
     private function getShipments()
     {
-        return CollectionHelper::collectionToArray($this->shipments);
+        return OystCollectionHelper::collectionToArray($this->shipments);
     }
 
     /**
@@ -419,9 +421,9 @@ class Product implements ArrayableInterface
     }
 
     /**
-     * @param Shipment $shipment
+     * @param OystShipment $shipment
      */
-    public function addShipment(Shipment $shipment)
+    public function addShipment(OystShipment $shipment)
     {
         $this->shipments[] = $shipment;
     }
@@ -611,7 +613,7 @@ class Product implements ArrayableInterface
      */
     private function getVariations()
     {
-        return CollectionHelper::collectionToArray($this->variations);
+        return OystCollectionHelper::collectionToArray($this->variations);
     }
 
     /**
@@ -625,9 +627,9 @@ class Product implements ArrayableInterface
     }
 
     /**
-     * @param Product $variation
+     * @param OystProduct $variation
      */
-    public function addVariation(Product $variation)
+    public function addVariation(OystProduct $variation)
     {
         $this->variations[] = $variation;
     }
@@ -638,30 +640,30 @@ class Product implements ArrayableInterface
     public function toArray()
     {
         $product = array(
-            'reference'                   => $this->getRef(),
-            'is_active'                   => $this->isActive(),
-            'is_materialized'             => $this->isMaterialized(),
-            'title'                       => $this->getTitle(),
-            'condition'                   => $this->getCondition(),
-            'short_description'           => $this->getShortDescription(),
-            'description'                 => $this->getDescription(),
-            'tags'                        => $this->getTags(),
-            'amount_including_taxes'      => $this->getIncludingTax(),
-            'url'                         => $this->getUrl(),
-            'categories'                  => $this->getCategories(),
-            'manufacturer'                => $this->getManufacturer(),
-            'shipments'                   => $this->getShipments(),
-            'size'                        => $this->getSize(),
-            'available_quantity'          => $this->getAvailableQuantity(),
-            'weight'                      => $this->getWeight(),
-            'is_discounted'               => $this->isDiscounted(),
-            'ean'                         => $this->getEan(),
-            'upc'                         => $this->getUpc(),
-            'isbn'                        => $this->getIsbn(),
-            'images'                      => $this->getImages(),
-            'informations'                => $this->getInformation(),
-            'related_products'            => $this->getRelatedProducts(),
-            'variations'                  => $this->getVariations(),
+            'reference'              => $this->getRef(),
+            'is_active'              => $this->isActive(),
+            'is_materialized'        => $this->isMaterialized(),
+            'title'                  => $this->getTitle(),
+            'condition'              => $this->getCondition(),
+            'short_description'      => $this->getShortDescription(),
+            'description'            => $this->getDescription(),
+            'tags'                   => $this->getTags(),
+            'amount_including_taxes' => $this->getAmountIncludingTax(),
+            'url'                    => $this->getUrl(),
+            'categories'             => $this->getCategories(),
+            'manufacturer'           => $this->getManufacturer(),
+            'shipments'              => $this->getShipments(),
+            'size'                   => $this->getSize(),
+            'available_quantity'     => $this->getAvailableQuantity(),
+            'weight'                 => $this->getWeight(),
+            'is_discounted'          => $this->isDiscounted(),
+            'ean'                    => $this->getEan(),
+            'upc'                    => $this->getUpc(),
+            'isbn'                   => $this->getIsbn(),
+            'images'                 => $this->getImages(),
+            'informations'           => $this->getInformation(),
+            'related_products'       => $this->getRelatedProducts(),
+            'variations'             => $this->getVariations(),
         );
 
         return $product;

@@ -1,9 +1,9 @@
 <?php
 
-require_once(__DIR__.'/../helper/APIHelper.php');
+require_once(__DIR__.'/../../autoload.php');
 
 /**
- * Class PaymentAPI
+ * Class OystPaymentAPI
  *
  * PHP version 5.2
  *
@@ -12,7 +12,7 @@ require_once(__DIR__.'/../helper/APIHelper.php');
  * @license  Copyright 2017, Oyst
  * @link     http://www.oyst.com
  */
-class PaymentAPI extends APIHelper
+class OystPaymentAPI extends OystAPIHelper
 {
     /**
      * POST /payments

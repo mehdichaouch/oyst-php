@@ -1,7 +1,9 @@
 <?php
 
+require_once(__DIR__.'/../../autoload.php');
+
 /**
- * Class Address
+ * Class OystAddress
  *
  * PHP version 5.2
  *
@@ -10,7 +12,7 @@
  * @license  Copyright 2017, Oyst
  * @link     http://www.oyst.com
  */
-class Address implements ArrayableInterface
+class OystAddress implements OystArrayInterface
 {
     /**
      * @var string

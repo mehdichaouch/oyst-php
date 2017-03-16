@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Class Payment
+ * Interface OystArrayInterface
  *
  * PHP version 5.2
  *
@@ -10,6 +10,10 @@
  * @license  Copyright 2017, Oyst
  * @link     http://www.oyst.com
  */
-class Payment
+interface OystArrayInterface
 {
+    /**
+     * @return array
+     */
+    public function toArray();
 }

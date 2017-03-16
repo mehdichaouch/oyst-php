@@ -1,5 +1,7 @@
 <?php
 
+require_once(__DIR__.'/../../autoload.php');
+
 /**
  *
  * Class APIHelper
@@ -11,7 +13,7 @@
  * @license  Copyright 2017, Oyst
  * @link     http://www.oyst.com
  */
-abstract class APIHelper
+abstract class OystAPIHelper
 {
     /**
      * @var string

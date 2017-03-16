@@ -1,9 +1,9 @@
 <?php
 
-require_once(__DIR__.'/../helper/APIHelper.php');
+require_once(__DIR__.'/../../autoload.php');
 
 /**
- * Class CatalogAPI
+ * Class OystCatalogAPI
  *
  * PHP version 5.2
  *
@@ -12,12 +12,12 @@ require_once(__DIR__.'/../helper/APIHelper.php');
  * @license  Copyright 2017, Oyst
  * @link     http://www.oyst.com
  */
-class CatalogAPI extends APIHelper
+class OystCatalogAPI extends OystAPIHelper
 {
     /**
      * POST /products
      *
-     * @param array|Product $postData An array of Product or a Product
+     * @param array|OystProduct $postData An array of Product or a Product
      *
      * @return array
      */
@@ -26,14 +26,14 @@ class CatalogAPI extends APIHelper
         $url  = 'products';
         $data = array();
 
-        if ($postData instanceof Product) {
+        if ($postData instanceof OystProduct) {
             $product = $postData->toArray();
 
             $data = array('product' => $product);
         } else {
             $products = array();
 
-            /** @var ArrayableInterface $product */
+            /** @var OystArrayInterface $product */
             foreach ($postData as $product) {
                 $products[] = $product->toArray();
             }
@@ -47,11 +47,11 @@ class CatalogAPI extends APIHelper
     /**
      * PUT /products/{id}
      *
-     * @param Product $product
+     * @param OystProduct $product
      *
      * @return array
      */
-    public function putProduct(Product $product)
+    public function putProduct(OystProduct $product)
     {
         $url  = 'products/'.$product->getId();
         $data = $product->toArray();

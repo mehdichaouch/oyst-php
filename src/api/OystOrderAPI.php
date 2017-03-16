@@ -1,9 +1,9 @@
 <?php
 
-require_once(__DIR__.'/../helper/APIHelper.php');
+require_once(__DIR__.'/../../autoload.php');
 
 /**
- * Class OrderAPI
+ * Class OystOrderAPI
  *
  * PHP version 5.2
  *
@@ -12,7 +12,7 @@ require_once(__DIR__.'/../helper/APIHelper.php');
  * @license  Copyright 2017, Oyst
  * @link     http://www.oyst.com
  */
-class OrderAPI extends APIHelper
+class OystOrderAPI extends OystAPIHelper
 {
     const STATUS_ACCEPTED  = 'accepted';
     const STATUS_DENIED    = 'denied';
@@ -46,7 +46,7 @@ class OrderAPI extends APIHelper
     /**
      * GET /orders/{id}
      *
-     * @param $data
+     * @param $orderId
      *
      * @return array
      */
@@ -76,13 +76,14 @@ class OrderAPI extends APIHelper
     /**
      * POST /orders/authorize
      *
-     * @param $productRef
-     * @param $skuRef
-     * @param $quantity
+     * @param string        $productRef
+     * @param string        $skuRef
+     * @param int           $quantity
+     * @param OystUser|null $user
      *
      * @return array
      */
-    public function authorizeOrder($productRef, $skuRef, $quantity)
+    public function authorizeOrder($productRef, $skuRef, $quantity, User $user = null)
     {
         $url  = 'orders/authorize';
         $data = array(
@@ -90,6 +91,10 @@ class OrderAPI extends APIHelper
             'sku_reference'     => $skuRef,
             'quantity'          => $quantity,
         );
+
+        if (!is_null($user)) {
+            $data['user'] = $user->toArray();
+        }
 
         return $this->send('POST', $url, $data);
     }

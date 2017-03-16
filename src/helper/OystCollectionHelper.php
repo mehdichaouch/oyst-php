@@ -1,7 +1,9 @@
 <?php
 
+require_once(__DIR__.'/../../autoload.php');
+
 /**
- * Class CollectionHelper
+ * Class OystCollectionHelper
  *
  * PHP version 5.2
  *
@@ -10,7 +12,7 @@
  * @license  Copyright 2017, Oyst
  * @link     http://www.oyst.com
  */
-class CollectionHelper
+class OystCollectionHelper
 {
     /**
      * @param $collection
@@ -21,7 +23,7 @@ class CollectionHelper
     {
         $data = array();
 
-        /** @var ArrayableInterface $element */
+        /** @var OystArrayInterface $element */
         foreach ($collection as $element) {
             $data[] = $element->toArray();
         }

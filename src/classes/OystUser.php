@@ -1,7 +1,9 @@
 <?php
 
+require_once(__DIR__.'/../../autoload.php');
+
 /**
- * Class User
+ * Class OystUser
  *
  * PHP version 5.2
  *
@@ -10,7 +12,7 @@
  * @license  Copyright 2017, Oyst
  * @link     http://www.oyst.com
  */
-class User implements ArrayableInterface
+class OystUser implements OystArrayInterface
 {
     /**
      * @var string
@@ -159,7 +161,7 @@ class User implements ArrayableInterface
      */
     private function getAddresses()
     {
-        return CollectionHelper::collectionToArray($this->addresses);
+        return OystCollectionHelper::collectionToArray($this->addresses);
     }
 
     /**
@@ -171,9 +173,9 @@ class User implements ArrayableInterface
     }
 
     /**
-     * @param Address $address
+     * @param OystAddress $address
      */
-    public function addAddress(Address $address)
+    public function addAddress(OystAddress $address)
     {
         $this->addresses[] = $address;
     }
@@ -183,7 +185,7 @@ class User implements ArrayableInterface
      */
     private function getBillingAddresses()
     {
-        return CollectionHelper::collectionToArray($this->billingAddresses);
+        return OystCollectionHelper::collectionToArray($this->billingAddresses);
     }
 
     /**
@@ -195,9 +197,9 @@ class User implements ArrayableInterface
     }
 
     /**
-     * @param Address $billingAddress
+     * @param OystAddress $billingAddress
      */
-    public function addBillingAddress(Address $billingAddress)
+    public function addBillingAddress(OystAddress $billingAddress)
     {
         $this->billingAddresses[] = $billingAddress;
     }
