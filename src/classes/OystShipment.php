@@ -49,10 +49,14 @@ class OystShipment implements OystArrayInterface
 
     /**
      * @param string $zone
+     *
+     * @return OystShipment
      */
     public function setZone($zone)
     {
         $this->zone = $zone;
+
+        return $this;
     }
 
     /**
@@ -65,10 +69,14 @@ class OystShipment implements OystArrayInterface
 
     /**
      * @param string $carrier
+     *
+     * @return OystShipment
      */
     public function setCarrier($carrier)
     {
         $this->carrier = $carrier;
+
+        return $this;
     }
 
     /**
@@ -81,10 +89,14 @@ class OystShipment implements OystArrayInterface
 
     /**
      * @param string $delay
+     *
+     * @return OystShipment
      */
     public function setDelay($delay)
     {
         $this->delay = $delay;
+
+        return $this;
     }
 
     /**
@@ -97,10 +109,14 @@ class OystShipment implements OystArrayInterface
 
     /**
      * @param string $value
+     *
+     * @return OystShipment
      */
     public function setValue($value)
     {
         $this->value = $value;
+
+        return $this;
     }
 
     /**
@@ -113,10 +129,14 @@ class OystShipment implements OystArrayInterface
 
     /**
      * @param string $currency
+     *
+     * @return OystShipment
      */
     public function setCurrency($currency)
     {
         $this->currency = $currency;
+
+        return $this;
     }
 
     /**

@@ -48,10 +48,14 @@ class OystPrice implements OystArrayInterface
 
     /**
      * @param int $value
+     *
+     * @return OystPrice
      */
     public function setValue($value)
     {
         $this->value = $value;
+
+        return $this;
     }
 
     /**
@@ -64,10 +68,14 @@ class OystPrice implements OystArrayInterface
 
     /**
      * @param string $currency
+     *
+     * @return OystPrice
      */
     public function setCurrency($currency)
     {
         $this->currency = $currency;
+
+        return $this;
     }
 
     /**

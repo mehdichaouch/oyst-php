@@ -127,10 +127,14 @@ class OystOrder
 
     /**
      * @param string $id
+     *
+     * @return OystOrder
      */
     public function setId($id)
     {
         $this->id = $id;
+
+        return $this;
     }
 
     /**
@@ -143,10 +147,14 @@ class OystOrder
 
     /**
      * @param string $productReference
+     *
+     * @return OystOrder
      */
     public function setProductReference($productReference)
     {
         $this->productReference = $productReference;
+
+        return $this;
     }
 
     /**
@@ -159,10 +167,14 @@ class OystOrder
 
     /**
      * @param string $skuReference
+     *
+     * @return OystOrder
      */
     public function setSkuReference($skuReference)
     {
         $this->skuReference = $skuReference;
+
+        return $this;
     }
 
     /**
@@ -175,10 +187,14 @@ class OystOrder
 
     /**
      * @param int $productAmount
+     *
+     * @return OystOrder
      */
     public function setProductAmount($productAmount)
     {
         $this->productAmount = $productAmount;
+
+        return $this;
     }
 
     /**
@@ -191,10 +207,14 @@ class OystOrder
 
     /**
      * @param string $productCurrency
+     *
+     * @return OystOrder
      */
     public function setProductCurrency($productCurrency)
     {
         $this->productCurrency = $productCurrency;
+
+        return $this;
     }
 
     /**
@@ -207,10 +227,14 @@ class OystOrder
 
     /**
      * @param int $orderAmount
+     *
+     * @return OystOrder
      */
     public function setOrderAmount($orderAmount)
     {
         $this->orderAmount = $orderAmount;
+
+        return $this;
     }
 
     /**
@@ -223,10 +247,14 @@ class OystOrder
 
     /**
      * @param string $orderCurrency
+     *
+     * @return OystOrder
      */
     public function setOrderCurrency($orderCurrency)
     {
         $this->orderCurrency = $orderCurrency;
+
+        return $this;
     }
 
     /**
@@ -239,10 +267,14 @@ class OystOrder
 
     /**
      * @param int $quantity
+     *
+     * @return OystOrder
      */
     public function setQuantity($quantity)
     {
         $this->quantity = $quantity;
+
+        return $this;
     }
 
     /**
@@ -255,10 +287,14 @@ class OystOrder
 
     /**
      * @param string $currentStatus
+     *
+     * @return OystOrder
      */
     public function setCurrentStatus($currentStatus)
     {
         $this->currentStatus = $currentStatus;
+
+        return $this;
     }
 
     /**
@@ -271,10 +307,14 @@ class OystOrder
 
     /**
      * @param OystShipment $shipment
+     *
+     * @return OystOrder
      */
     public function setShipment($shipment)
     {
         $this->shipment = $shipment;
+
+        return $this;
     }
 
     /**
@@ -287,10 +327,14 @@ class OystOrder
 
     /**
      * @param array $statusHistoric
+     *
+     * @return OystOrder
      */
     public function setStatusHistoric($statusHistoric)
     {
         $this->statusHistoric = $statusHistoric;
+
+        return $this;
     }
 
     /**
@@ -303,10 +347,14 @@ class OystOrder
 
     /**
      * @param OystUser $user
+     *
+     * @return OystOrder
      */
     public function setUser($user)
     {
         $this->user = $user;
+
+        return $this;
     }
 
     /**
@@ -319,10 +367,14 @@ class OystOrder
 
     /**
      * @param string $cpa
+     *
+     * @return OystOrder
      */
     public function setCpa($cpa)
     {
         $this->cpa = $cpa;
+
+        return $this;
     }
 
     /**
@@ -335,10 +387,14 @@ class OystOrder
 
     /**
      * @param string $commissionValue
+     *
+     * @return OystOrder
      */
     public function setCommissionValue($commissionValue)
     {
         $this->commissionValue = $commissionValue;
+
+        return $this;
     }
 
     /**
@@ -351,10 +407,14 @@ class OystOrder
 
     /**
      * @param string $commissionCurrency
+     *
+     * @return OystOrder
      */
     public function setCommissionCurrency($commissionCurrency)
     {
         $this->commissionCurrency = $commissionCurrency;
+
+        return $this;
     }
 
     /**
@@ -367,10 +427,14 @@ class OystOrder
 
     /**
      * @param DateTime $createdAt
+     *
+     * @return OystOrder
      */
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
+
+        return $this;
     }
 
     /**
@@ -383,9 +447,13 @@ class OystOrder
 
     /**
      * @param DateTime $updatedAt
+     *
+     * @return OystOrder
      */
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
     }
 }

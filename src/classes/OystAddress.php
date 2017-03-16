@@ -74,10 +74,14 @@ class OystAddress implements OystArrayInterface
 
     /**
      * @param string $firstName
+     *
+     * @return OystAddress
      */
     public function setFirstName($firstName)
     {
         $this->firstName = $firstName;
+
+        return $this;
     }
 
     /**
@@ -90,10 +94,14 @@ class OystAddress implements OystArrayInterface
 
     /**
      * @param string $lastName
+     *
+     * @return OystAddress
      */
     public function setLastName($lastName)
     {
         $this->lastName = $lastName;
+
+        return $this;
     }
 
     /**
@@ -106,10 +114,14 @@ class OystAddress implements OystArrayInterface
 
     /**
      * @param string $companyName
+     *
+     * @return OystAddress
      */
     public function setCompanyName($companyName)
     {
         $this->companyName = $companyName;
+
+        return $this;
     }
 
     /**
@@ -122,10 +134,14 @@ class OystAddress implements OystArrayInterface
 
     /**
      * @param string $label
+     *
+     * @return OystAddress
      */
     public function setLabel($label)
     {
         $this->label = $label;
+
+        return $this;
     }
 
     /**
@@ -138,10 +154,14 @@ class OystAddress implements OystArrayInterface
 
     /**
      * @param string $street
+     *
+     * @return OystAddress
      */
     public function setStreet($street)
     {
         $this->street = $street;
+
+        return $this;
     }
 
     /**
@@ -154,10 +174,14 @@ class OystAddress implements OystArrayInterface
 
     /**
      * @param string $complementary
+     *
+     * @return OystAddress
      */
     public function setComplementary($complementary)
     {
         $this->complementary = $complementary;
+
+        return $this;
     }
 
     /**
@@ -170,10 +194,14 @@ class OystAddress implements OystArrayInterface
 
     /**
      * @param string $city
+     *
+     * @return OystAddress
      */
     public function setCity($city)
     {
         $this->city = $city;
+
+        return $this;
     }
 
     /**
@@ -186,10 +214,14 @@ class OystAddress implements OystArrayInterface
 
     /**
      * @param string $postCode
+     *
+     * @return OystAddress
      */
     public function setPostCode($postCode)
     {
         $this->postCode = $postCode;
+
+        return $this;
     }
 
     /**
@@ -202,10 +234,14 @@ class OystAddress implements OystArrayInterface
 
     /**
      * @param string $region
+     *
+     * @return OystAddress
      */
     public function setRegion($region)
     {
         $this->region = $region;
+
+        return $this;
     }
 
     /**
@@ -218,10 +254,14 @@ class OystAddress implements OystArrayInterface
 
     /**
      * @param string $country
+     *
+     * @return OystAddress
      */
     public function setCountry($country)
     {
         $this->country = $country;
+
+        return $this;
     }
 
     /**

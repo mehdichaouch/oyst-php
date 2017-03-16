@@ -204,10 +204,14 @@ class OystProduct implements OystArrayInterface
 
     /**
      * @param string $ref
+     *
+     * @return OystProduct
      */
     public function setRef($ref)
     {
         $this->ref = $ref;
+
+        return $this;
     }
 
     /**
@@ -220,10 +224,14 @@ class OystProduct implements OystArrayInterface
 
     /**
      * @param bool $active
+     *
+     * @return OystProduct
      */
     public function setActive($active)
     {
         $this->active = $active;
+
+        return $this;
     }
 
     /**
@@ -236,10 +244,14 @@ class OystProduct implements OystArrayInterface
 
     /**
      * @param bool $materialized
+     *
+     * @return OystProduct
      */
     public function setMaterialized($materialized)
     {
         $this->materialized = $materialized;
+
+        return $this;
     }
 
     /**
@@ -252,10 +264,14 @@ class OystProduct implements OystArrayInterface
 
     /**
      * @param string $title
+     *
+     * @return OystProduct
      */
     public function setTitle($title)
     {
         $this->title = $title;
+
+        return $this;
     }
 
     /**
@@ -268,10 +284,14 @@ class OystProduct implements OystArrayInterface
 
     /**
      * @param string $condition Either 'new', 'reused' or 'refurbished'
+     *
+     * @return OystProduct
      */
     public function setCondition($condition)
     {
         $this->condition = $condition;
+
+        return $this;
     }
 
     /**
@@ -284,10 +304,14 @@ class OystProduct implements OystArrayInterface
 
     /**
      * @param string $shortDescription
+     *
+     * @return OystProduct
      */
     public function setShortDescription($shortDescription)
     {
         $this->shortDescription = $shortDescription;
+
+        return $this;
     }
 
     /**
@@ -300,10 +324,14 @@ class OystProduct implements OystArrayInterface
 
     /**
      * @param string $description
+     *
+     * @return OystProduct
      */
     public function setDescription($description)
     {
         $this->description = $description;
+
+        return $this;
     }
 
     /**
@@ -316,18 +344,26 @@ class OystProduct implements OystArrayInterface
 
     /**
      * @param array $tags An array of string
+     *
+     * @return OystProduct
      */
     public function setTags($tags)
     {
         $this->tags = $tags;
+
+        return $this;
     }
 
     /**
      * @param string $tag
+     *
+     * @return OystProduct
      */
     public function addTag($tag)
     {
         $this->tags[] = $tag;
+
+        return $this;
     }
 
     /**
@@ -340,10 +376,14 @@ class OystProduct implements OystArrayInterface
 
     /**
      * @param OystPrice $amountIncludingTax
+     *
+     * @return OystProduct
      */
     public function setAmountIncludingTax($amountIncludingTax)
     {
         $this->amountIncludingTax = $amountIncludingTax;
+
+        return $this;
     }
 
     /**
@@ -356,10 +396,14 @@ class OystProduct implements OystArrayInterface
 
     /**
      * @param string $url
+     *
+     * @return OystProduct
      */
     public function setUrl($url)
     {
         $this->url = $url;
+
+        return $this;
     }
 
     /**
@@ -372,18 +416,26 @@ class OystProduct implements OystArrayInterface
 
     /**
      * @param array $categories An array of Category
+     *
+     * @return OystProduct
      */
     public function setCategories($categories)
     {
         $this->categories = $categories;
+
+        return $this;
     }
 
     /**
      * @param OystCategory $category
+     *
+     * @return OystProduct
      */
     public function addCategory(OystCategory $category)
     {
         $this->categories[] = $category;
+
+        return $this;
     }
 
     /**
@@ -396,10 +448,14 @@ class OystProduct implements OystArrayInterface
 
     /**
      * @param string $manufacturer
+     *
+     * @return OystProduct
      */
     public function setManufacturer($manufacturer)
     {
         $this->manufacturer = $manufacturer;
+
+        return $this;
     }
 
     /**
@@ -414,18 +470,26 @@ class OystProduct implements OystArrayInterface
      * Array of Shipment
      *
      * @param array $shipments
+     *
+     * @return OystProduct
      */
     public function setShipments($shipments)
     {
         $this->shipments = $shipments;
+
+        return $this;
     }
 
     /**
      * @param OystShipment $shipment
+     *
+     * @return OystProduct
      */
     public function addShipment(OystShipment $shipment)
     {
         $this->shipments[] = $shipment;
+
+        return $this;
     }
 
     /**
@@ -438,10 +502,14 @@ class OystProduct implements OystArrayInterface
 
     /**
      * @param string $size
+     *
+     * @return OystProduct
      */
     public function setSize($size)
     {
         $this->size = $size;
+
+        return $this;
     }
 
     /**
@@ -454,10 +522,14 @@ class OystProduct implements OystArrayInterface
 
     /**
      * @param int $availableQuantity
+     *
+     * @return OystProduct
      */
     public function setAvailableQuantity($availableQuantity)
     {
         $this->availableQuantity = $availableQuantity;
+
+        return $this;
     }
 
     /**
@@ -470,10 +542,14 @@ class OystProduct implements OystArrayInterface
 
     /**
      * @param string $weight
+     *
+     * @return OystProduct
      */
     public function setWeight($weight)
     {
         $this->weight = $weight;
+
+        return $this;
     }
 
     /**
@@ -486,10 +562,14 @@ class OystProduct implements OystArrayInterface
 
     /**
      * @param bool $discounted
+     *
+     * @return OystProduct
      */
     public function setDiscounted($discounted)
     {
         $this->discounted = $discounted;
+
+        return $this;
     }
 
     /**
@@ -502,10 +582,14 @@ class OystProduct implements OystArrayInterface
 
     /**
      * @param string $ean
+     *
+     * @return OystProduct
      */
     public function setEan($ean)
     {
         $this->ean = $ean;
+
+        return $this;
     }
 
     /**
@@ -518,10 +602,14 @@ class OystProduct implements OystArrayInterface
 
     /**
      * @param string $upc
+     *
+     * @return OystProduct
      */
     public function setUpc($upc)
     {
         $this->upc = $upc;
+
+        return $this;
     }
 
     /**
@@ -534,10 +622,14 @@ class OystProduct implements OystArrayInterface
 
     /**
      * @param string $isbn
+     *
+     * @return OystProduct
      */
     public function setIsbn($isbn)
     {
         $this->isbn = $isbn;
+
+        return $this;
     }
 
     /**
@@ -552,18 +644,26 @@ class OystProduct implements OystArrayInterface
      * Array of string
      *
      * @param array $images
+     *
+     * @return OystProduct
      */
     public function setImages($images)
     {
         $this->images = $images;
+
+        return $this;
     }
 
     /**
      * @param string $url
+     *
+     * @return OystProduct
      */
     public function addImage($url)
     {
         $this->images[] = $url;
+
+        return $this;
     }
 
     /**
@@ -578,10 +678,14 @@ class OystProduct implements OystArrayInterface
      * Custom array
      *
      * @param array $information
+     *
+     * @return OystProduct
      */
     public function setInformation($information)
     {
         $this->information = $information;
+
+        return $this;
     }
 
     /**
@@ -594,18 +698,26 @@ class OystProduct implements OystArrayInterface
 
     /**
      * @param array $relatedProducts
+     *
+     * @return OystProduct
      */
     public function setRelatedProducts($relatedProducts)
     {
         $this->relatedProducts = $relatedProducts;
+
+        return $this;
     }
 
     /**
      * @param string $ref
+     *
+     * @return OystProduct
      */
     public function addRelatedProduct($ref)
     {
         $this->relatedProducts[] = $ref;
+
+        return $this;
     }
 
     /**
@@ -620,18 +732,26 @@ class OystProduct implements OystArrayInterface
      * Array of Product
      *
      * @param array $variations
+     *
+     * @return OystProduct
      */
     public function setVariations($variations)
     {
         $this->variations = $variations;
+
+        return $this;
     }
 
     /**
      * @param OystProduct $variation
+     *
+     * @return OystProduct
      */
     public function addVariation(OystProduct $variation)
     {
         $this->variations[] = $variation;
+
+        return $this;
     }
 
     /**

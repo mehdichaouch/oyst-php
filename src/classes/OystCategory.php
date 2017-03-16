@@ -57,10 +57,14 @@ class OystCategory implements OystArrayInterface
 
     /**
      * @param string $ref
+     *
+     * @return OystCategory
      */
     public function setRef($ref)
     {
         $this->ref = $ref;
+
+        return $this;
     }
 
     /**
@@ -73,10 +77,14 @@ class OystCategory implements OystArrayInterface
 
     /**
      * @param bool $main
+     *
+     * @return OystCategory
      */
     public function setMain($main)
     {
         $this->main = $main;
+
+        return $this;
     }
 
     /**
@@ -89,10 +97,14 @@ class OystCategory implements OystArrayInterface
 
     /**
      * @param string $title
+     *
+     * @return OystCategory
      */
     public function setTitle($title)
     {
         $this->title = $title;
+
+        return $this;
     }
 
     /**

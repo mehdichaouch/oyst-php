@@ -70,10 +70,14 @@ class OystUser implements OystArrayInterface
 
     /**
      * @param string $firstName
+     *
+     * @return OystUser
      */
     public function setFirstName($firstName)
     {
         $this->firstName = $firstName;
+
+        return $this;
     }
 
     /**
@@ -86,10 +90,14 @@ class OystUser implements OystArrayInterface
 
     /**
      * @param string $lastName
+     *
+     * @return OystUser
      */
     public function setLastName($lastName)
     {
         $this->lastName = $lastName;
+
+        return $this;
     }
 
     /**
@@ -102,10 +110,14 @@ class OystUser implements OystArrayInterface
 
     /**
      * @param string $email
+     *
+     * @return OystUser
      */
     public function setEmail($email)
     {
         $this->email = $email;
+
+        return $this;
     }
 
     /**
@@ -118,10 +130,14 @@ class OystUser implements OystArrayInterface
 
     /**
      * @param string $phone
+     *
+     * @return OystUser
      */
     public function setPhone($phone)
     {
         $this->phone = $phone;
+
+        return $this;
     }
 
     /**
@@ -134,10 +150,14 @@ class OystUser implements OystArrayInterface
 
     /**
      * @param string $language
+     *
+     * @return OystUser
      */
     public function setLanguage($language)
     {
         $this->language = $language;
+
+        return $this;
     }
 
     /**
@@ -150,10 +170,14 @@ class OystUser implements OystArrayInterface
 
     /**
      * @param array $additionalData Custom array
+     *
+     * @return OystUser
      */
     public function setAdditionalData($additionalData)
     {
         $this->additionalData = $additionalData;
+
+        return $this;
     }
 
     /**
@@ -166,18 +190,26 @@ class OystUser implements OystArrayInterface
 
     /**
      * @param array $addresses An array of Address
+     *
+     * @return OystUser
      */
     public function setAddresses($addresses)
     {
         $this->addresses = $addresses;
+
+        return $this;
     }
 
     /**
      * @param OystAddress $address
+     *
+     * @return OystUser
      */
     public function addAddress(OystAddress $address)
     {
         $this->addresses[] = $address;
+
+        return $this;
     }
 
     /**
@@ -190,18 +222,26 @@ class OystUser implements OystArrayInterface
 
     /**
      * @param array $billingAddresses An array of Address
+     *
+     * @return OystUser
      */
     public function setBillingAddresses($billingAddresses)
     {
         $this->billingAddresses = $billingAddresses;
+
+        return $this;
     }
 
     /**
      * @param OystAddress $billingAddress
+     *
+     * @return OystUser
      */
     public function addBillingAddress(OystAddress $billingAddress)
     {
         $this->billingAddresses[] = $billingAddress;
+
+        return $this;
     }
 
     /**
