@@ -1,33 +1,20 @@
 <?php
 
-function autoloadFile($filePath)
+function oystAutoload($className)
 {
-    if (is_readable($filePath)) {
-        require_once $filePath;
+    $folders = [
+        '/api',
+        '/classes',
+        '/helper',
+    ];
+
+    // Simple autoload without sub directories for now
+    foreach ($folders as $folder) {
+        $path = __DIR__.'/src'.$folder.'/'.$className.'.php';
+        if (file_exists($path)) {
+            require_once $path;
+        }
     }
 }
 
-function autoloadAPIs($className)
-{
-    $filePath = __DIR__.'/src'.DIRECTORY_SEPARATOR.'api'.DIRECTORY_SEPARATOR.$className.'.php';
-
-    autoloadFile($filePath);
-}
-
-function autoloadClasses($className)
-{
-    $filePath = __DIR__.'/src'.DIRECTORY_SEPARATOR.'classes'.DIRECTORY_SEPARATOR.$className.'.php';
-
-    autoloadFile($filePath);
-}
-
-function autoloadHelpers($className)
-{
-    $filePath = __DIR__.'/src'.DIRECTORY_SEPARATOR.'helper'.DIRECTORY_SEPARATOR.$className.'.php';
-
-    autoloadFile($filePath);
-}
-
-spl_autoload_register('autoloadAPIs');
-spl_autoload_register('autoloadClasses');
-spl_autoload_register('autoloadHelpers');
+spl_autoload_register('oystAutoload');
