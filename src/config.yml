@@ -1,0 +1,25 @@
+api:
+    prod:
+        url: https://api.staging.oyst.eu
+
+    dev:
+        url: https://api.oyst.com
+
+    endpoints:
+        catalog:
+            addProducts:
+                method: POST
+                endpoint: /catalog/products
+            updateProducts:
+                method: PATCH
+                endpoint: /catalog/products
+            getProducts:
+                method: GET
+                endpoint: /catalog/products
+        order:
+            getOrders:
+                method: GET
+                endpoint: /order/orders
+            authorize:
+                method: POST
+                endpoint: /order/authorize

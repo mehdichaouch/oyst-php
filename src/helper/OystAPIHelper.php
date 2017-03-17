@@ -16,11 +16,6 @@ abstract class OystAPIHelper
     /**
      * @var string
      */
-    private $apiEndPoint;
-
-    /**
-     * @var string
-     */
     private $apiKey;
 
     /**
@@ -29,15 +24,22 @@ abstract class OystAPIHelper
     private $userAgent;
 
     /**
-     * @param string $apiEndPoint
+     * @var OystApiConfigurationLoader
+     */
+    protected $apiConfigurationLoader;
+
+    /**
+     * @param OystApiConfigurationLoader $apiConfigurationLoader
      * @param string $apiKey
      * @param string $userAgent
+     * @internal param $url
+     * @internal param string $apiEndPoint
      */
-    final public function __construct($apiEndPoint, $apiKey, $userAgent)
+    public function __construct(OystApiConfigurationLoader $apiConfigurationLoader, $apiKey, $userAgent)
     {
-        $this->apiEndPoint = $apiEndPoint;
         $this->apiKey      = $apiKey;
         $this->userAgent   = $userAgent;
+        $this->apiConfigurationLoader = $apiConfigurationLoader;
     }
 
     /**
@@ -51,11 +53,11 @@ abstract class OystAPIHelper
      */
     final protected function send($method, $url, $data = array())
     {
-        $targetUrl = trim($this->apiEndPoint, '/').'/'.trim($url, '/');
+        $url = $this->apiConfigurationLoader->getApiUrl().$url;
         $dataJson  = json_encode($data);
 
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $targetUrl);
+        curl_setopt($ch, CURLOPT_URL, trim($url));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($ch, CURLOPT_TIMEOUT, 2000);

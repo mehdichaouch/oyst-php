@@ -13,33 +13,40 @@
 class OystCatalogAPI extends OystAPIHelper
 {
     /**
+     * @var OystProductApiConfigurationLoader
+     */
+    protected $apiConfigurationLoader;
+
+    /**
+     * OystCatalogAPI constructor.
+     * @param OystProductApiConfigurationLoader $oystProductApiConfigurationLoader
+     * @param string $apiKey
+     * @param string $userAgent
+     */
+    public function __construct(OystProductApiConfigurationLoader $oystProductApiConfigurationLoader, $apiKey, $userAgent)
+    {
+        parent::__construct($oystProductApiConfigurationLoader, $apiKey, $userAgent);
+    }
+
+    /**
      * POST /products
      *
-     * @param array|OystProduct $postData An array of Product or a Product
      *
+     * @param $oystProducts OystProduct[]
      * @return array
      */
-    public function postProduct($postData)
+    public function postProducts($oystProducts)
     {
-        $url  = 'products';
-        $data = array();
-
-        if ($postData instanceof OystProduct) {
-            $product = $postData->toArray();
-
-            $data = array('product' => $product);
-        } else {
-            $products = array();
-
-            /** @var OystArrayInterface $product */
-            foreach ($postData as $product) {
-                $products[] = $product->toArray();
-            }
-
-            $data = array('products' => $products);
+        $formattedData = [];
+        /** @var OystArrayInterface $product */
+        foreach ($oystProducts as $oystProduct) {
+            $formattedData[] = $oystProduct->toArray();
         }
 
-        return $this->send('POST', $url, $data);
+        $data = array('products' => $oystProducts);
+        $endpointInfo = $this->apiConfigurationLoader->getMethodAddProducts();
+
+        return $this->send($endpointInfo['method'], $endpointInfo['endpoint'], $data);
     }
 
     /**
@@ -51,23 +58,25 @@ class OystCatalogAPI extends OystAPIHelper
      */
     public function putProduct(OystProduct $product)
     {
-        $url  = 'products/'.$product->getId();
+        $endpointInfo = $this->apiConfigurationLoader->getMethodUpdateProducts();
+        $url  = $endpointInfo['endpoint'].$product->getId();
         $data = $product->toArray();
 
-        return $this->send('PUT', $url, $data);
+        return $this->send($endpointInfo['method'], $url, $data);
     }
 
     /**
      * DELETE /products/{id}
      *
-     * @param string $productId
-     *
+     * @param OystProduct $oystProduct
      * @return array
+     *
      */
-    public function deleteProduct($productId)
+    public function deleteProduct(OystProduct $oystProduct)
     {
-        $url  = 'products/'.$productId;
+        $endpointInfo = $this->apiConfigurationLoader->getMethodDeleteProducts();
+        $url  = $endpointInfo['endpoint'].$oystProduct->getId();
 
-        return $this->send('DELETE', $url);
+        return $this->send($endpointInfo['method'], $url);
     }
 }

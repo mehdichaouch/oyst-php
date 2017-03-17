@@ -18,3 +18,5 @@ function oystAutoload($className)
 }
 
 spl_autoload_register('oystAutoload');
+
+require_once __DIR__.'/src/vendor/Yaml-master/autoloader.php';
