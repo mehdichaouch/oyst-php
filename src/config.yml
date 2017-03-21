@@ -31,6 +31,9 @@ api:
           getProducts:
               method: GET
               endpoint: /products
+          notifyNewExport:
+              method: POST
+              endpoint: /import
         order:
           getOrders:
               method: GET

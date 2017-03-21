@@ -30,21 +30,20 @@ class OystCatalogAPI extends OystAPIHelper
     }
 
     /**
-     * POST /products
-     *
-     *
-     * @param $oystProducts OystProduct[]
-     * @return array
+     * @param $oystProducts
+     * @return mixed
      */
     public function postProducts($oystProducts)
     {
         $formattedData = [];
         /** @var OystArrayInterface $product */
         foreach ($oystProducts as $oystProduct) {
-            $formattedData[] = $oystProduct->toArray();
+            $productData = $oystProduct->toArray();
+            OystCollectionHelper::cleanData($productData);
+            $formattedData[] = $productData;
         }
 
-        $data = array('products' => $oystProducts);
+        $data = array('products' => $formattedData);
         $endpointInfo = $this->apiConfigurationLoader->getMethodAddProducts();
 
         return $this->send($endpointInfo['method'], $endpointInfo['endpoint'], $data);
@@ -79,5 +78,14 @@ class OystCatalogAPI extends OystAPIHelper
         $url  = $endpointInfo['endpoint'].$oystProduct->getId();
 
         return $this->send($endpointInfo['method'], $url);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function requestNewExport()
+    {
+        $endpointInfo = $this->apiConfigurationLoader->getMethodNotifyNewExport();
+        return $this->send($endpointInfo['method'], $endpointInfo['endpoint']);
     }
 }
