@@ -10,7 +10,7 @@
  * @license  Copyright 2017, Oyst
  * @link     http://www.oyst.com
  */
-class OystOrder
+class OystOrder implements Guzzle\Service\Command\ResponseClassInterface
 {
     /**
      * @var string
@@ -98,21 +98,27 @@ class OystOrder
     private $updatedAt;
 
     /**
-     * @param array $data
+     * @param \Guzzle\Service\Command\OperationCommand $command
+     *
+     * @return OystOrder
      */
-    public function __construct($data)
+    public static function fromCommand(\Guzzle\Service\Command\OperationCommand $command)
     {
-        $this->id               = OystObjectHelper::getValue($data['id']);
-        $this->productReference = OystObjectHelper::getValue($data['reference']);
-        $this->skuReference     = OystObjectHelper::getValue($data['sku_reference']);
-        $this->productAmount    = OystObjectHelper::getValue($data['product_amount']['value']);
-        $this->productCurrency  = OystObjectHelper::getValue($data['product_amount']['currency']);
-        $this->orderAmount      = OystObjectHelper::getValue($data['order_amount']['value']);
-        $this->orderCurrency    = OystObjectHelper::getValue($data['order_amount']['currency']);
-        $this->currentStatus    = OystObjectHelper::getValue($data['current_status']);
-        $this->createdAt        = OystObjectHelper::getDate($data['created_at']);
-        $this->updatedAt        = OystObjectHelper::getDate($data['updated_at']);
-        $this->quantity         = OystObjectHelper::getValue($data['quantity']);
+        $data  = $command->getResponse()->json();
+        $order = new self();
+        $order->id               = OystObjectHelper::getValue($data['id']);
+        $order->productReference = OystObjectHelper::getValue($data['reference']);
+        $order->skuReference     = OystObjectHelper::getValue($data['sku_reference']);
+        $order->productAmount    = OystObjectHelper::getValue($data['product_amount']['value']);
+        $order->productCurrency  = OystObjectHelper::getValue($data['product_amount']['currency']);
+        $order->orderAmount      = OystObjectHelper::getValue($data['order_amount']['value']);
+        $order->orderCurrency    = OystObjectHelper::getValue($data['order_amount']['currency']);
+        $order->currentStatus    = OystObjectHelper::getValue($data['current_status']);
+        $order->createdAt        = OystObjectHelper::getDate($data['created_at']);
+        $order->updatedAt        = OystObjectHelper::getDate($data['updated_at']);
+        $order->quantity         = OystObjectHelper::getValue($data['quantity']);
+
+        return $order;
     }
 
     /**

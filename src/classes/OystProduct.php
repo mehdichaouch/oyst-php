@@ -106,7 +106,7 @@ class OystProduct implements OystArrayInterface
     /**
      * Optional
      *
-     * @var string
+     * @var OystSize
      */
     private $size;
 
@@ -190,6 +190,7 @@ class OystProduct implements OystArrayInterface
         $this->images          = array();
         $this->relatedProducts = array();
         $this->variations      = array();
+        $this->information     = array();
     }
 
     /**
@@ -491,7 +492,7 @@ class OystProduct implements OystArrayInterface
     }
 
     /**
-     * @return string
+     * @return OystSize
      */
     public function getSize()
     {
@@ -499,7 +500,7 @@ class OystProduct implements OystArrayInterface
     }
 
     /**
-     * @param string $size
+     * @param OystSize $size
      *
      * @return OystProduct
      */
@@ -545,7 +546,7 @@ class OystProduct implements OystArrayInterface
      */
     public function setWeight($weight)
     {
-        $this->weight = (int) $weight;
+        $this->weight = $weight;
 
         return $this;
     }
@@ -771,7 +772,7 @@ class OystProduct implements OystArrayInterface
             'categories'             => OystCollectionHelper::collectionToArray($this->categories),
             'manufacturer'           => $this->manufacturer,
             'shipments'              => OystCollectionHelper::collectionToArray($this->shipments),
-            'size'                   => $this->size,
+            'size'                   => $this->size ? $this->size->toArray() : array(),
             'available_quantity'     => $this->availableQuantity,
             'weight'                 => $this->weight,
             'is_discounted'          => $this->discounted,

@@ -1,144 +1,31 @@
-Catalog API
-====
+API Wrapper
+===========
 
+The class `OystApiClientFactory` is used to get the right client to communicate with the api.
+As we build one class => several methods request call, for now the abstract method is not used to process automatically.
 
-
-
-Order API
-====
-
-1) `GET /orders/{id}`
-
-- method
-
-  ```php
-  getOrder($orderId)
-  ```
-
-- data
-
-  ```php
-  uuid $orderId
-  ```
-
-- return
-
-  - on success
-
-    ```javascript
-    {
-      statusCode: 200,
-      order: order_object
-    }
-    ```
-
-    Where order object is like this:
-
-    ```javascript
-    {
-        id: '274e918b-63d6-4cc7-af08-66d79cff2b3b',
-        product_amount: { value: 10050, currency: 'EUR' },
-        transaction_amount: { value: 10050, currency: 'EUR' },
-        current_status: 'pending',
-        created_at: 'Mon Jul 04 2016 10:13:08 GMT+0200 (CEST)',
-        merchant_id: '77e3faaa-b40e-4ba1-a506-80a3d08c2d16',
-        merchant_order_reference: null,
-        product_id: '99e3faaa-b40e-4ba1-a506-80a3d08c2d16',
-        product: { product_object },
-        quantity: 1,
-        shipment_amount: { value: 10050, currency: 'EUR' },
-        sku_id: '00e3faaa-b40e-4ba1-a506-80a3d08c2d16',
-        status: [ { date: '2016-07-04T08:13:08.197766+00:00', status: 'pending' } ],
-        transaction_id: '88e3faaa-b40e-4ba1-a506-80a3d08c2d16',
-        vat: { product: 20, shipment: 20 },
-        updated_at: null,
-        user_id: '77e3faaa-b40e-4ba1-a506-80a3d08c2d16',
-        user: { user_object }
-    }
-    ```
-
-   - on error
-
-    ```javascript
-    {
-      statusCode: integer,
-      message: string
-    }
-    ```
-
-
-2) `PUT /orders/{id}`
-
-- method
-
-  ```php
-  putOrder($data)
-  ```
-
-- data
-
-  ```php
-  array(
-    'oyst_order_id'   => integer
-    'order_reference' => 'MYLOCALORDERREF'
-  )
-  ```
-
-  or
-
-  ```php
-  array(
-    'oyst_order_id' => integer
-    'status'        => string
-  )
-  ```
-
-  Where `status` can take one of these values `[accepted, denied, pending, refunded]`
-
-- return
-
-  - on success
-
-    ```javascript
-    {
-      statusCode: 200,
-      order: order_object
-    }
-    ```
-
-    Where order object is like this:
-
-    ```javascript
-    {
-      id: '274e918b-63d6-4cc7-af08-66d79cff2b3b',
-      product_amount: { value: 10050, currency: 'EUR' },
-      transaction_amount: { value: 10050, currency: 'EUR' },
-      current_status: 'pending',
-      created_at: 'Mon Jul 04 2016 10:13:08 GMT+0200 (CEST)',
-      merchant_id: '77e3faaa-b40e-4ba1-a506-80a3d08c2d16',
-      merchant_order_reference: null,
-      product_id: '99e3faaa-b40e-4ba1-a506-80a3d08c2d16',
-      product: { product_object },
-      quantity: 1,
-      shipment_amount: { value: 10050, currency: 'EUR' },
-      sku_id: '00e3faaa-b40e-4ba1-a506-80a3d08c2d16',
-      status: [ { date: '2016-07-04T08:13:08.197766+00:00', status: 'pending' } ],
-      transaction_id: '88e3faaa-b40e-4ba1-a506-80a3d08c2d16',
-      vat: { product: 20, shipment: 20 },
-      updated_at: null,
-      user_id: '77e3faaa-b40e-4ba1-a506-80a3d08c2d16',
-      user: { user_object }
-    }
-    ```
-
-   - on error
-
-    ```javascript
-    {
-      statusCode: integer,
-      message: string
-    }
-    ```
-
-Payment API
-====
+**Note:** Should be interesting to process it the right way with an abstract method called by the parent like process()
+which is called by a public method access like exec(), start() for example.. )
+  
+```php
+OystApiClientFactory::getClient($entityName, $apiKey, $userAgent, env = 'prod');
+```
+  
+This method take several parameters as:
+  
+* **entityName** (constants available in `OystApiClientFactory`), could be:
+    * catalog
+    * order
+    * payment
+    * oneclick
+  
+* **apiKey**
+    * The API key is the key that was given to you by Oyst (if you don't have one you can go to the [FreePay BackOffice](https://admin.free-pay.com/signup) and create an account).
+  
+* **userAgent**
+    * To know the origin of the request (PrestaShop vX.X.X / Magento vX.X.X / Elsewhere)
+  
+* **env** (constants available in `OystApiClientFactory`), takes 3 values as:
+    * prod
+    * preprod
+    * integration, (will never be available for merchant)

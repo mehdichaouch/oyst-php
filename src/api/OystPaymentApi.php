@@ -1,20 +1,16 @@
 <?php
 
 /**
- * Class OystPaymentAPI
- *
- * PHP version 5.2
+ * Class OystPaymentApi
  *
  * @category Oyst
  * @author   Oyst <dev@oyst.com>
  * @license  Copyright 2017, Oyst
  * @link     http://www.oyst.com
  */
-class OystPaymentAPI extends OystAPIHelper
+class OystPaymentApi extends AbstractOystApiClient
 {
     /**
-     * POST /payments
-     *
      * @param float  $amount
      * @param string $currency
      * @param string $cartId
@@ -22,11 +18,10 @@ class OystPaymentAPI extends OystAPIHelper
      * @param bool   $is3d
      * @param array  $user
      *
-     * @return mixed The result on success, false on failure
+     * @return mixed
      */
     public function payment($amount, $currency, $cartId, $urls, $is3d, $user)
     {
-        $url  = 'payments';
         $data = array(
             'user'     => $user,
             'order_id' => (string) $cartId,
@@ -43,6 +38,24 @@ class OystPaymentAPI extends OystAPIHelper
             ),
         );
 
-        return $this->send('POST', $url, $data);
+        $response = $this->executeCommand('SendPayment', $data);
+
+        return $response;
+    }
+
+    /**
+     * @param $paymentId
+     *
+     * @return mixed
+     */
+    public function cancelOrRefund($paymentId)
+    {
+        $data = array(
+            'id' => $paymentId,
+        );
+
+        $response = $this->executeCommand('CancelOrRefund', $data);
+
+        return $response;
     }
 }
