@@ -8,6 +8,12 @@
  * @license  Copyright 2017, Oyst
  * @link     http://www.oyst.com
  */
+namespace Oyst\Api;
+
+use Guzzle\Service\Client;
+use Guzzle\Service\Description\ServiceDescription;
+use Symfony\Component\Yaml\Parser;
+
 class OystApiClientFactory
 {
     const ENTITY_CATALOG  = 'catalog';
@@ -27,7 +33,7 @@ class OystApiClientFactory
      *
      * @return AbstractOystApiClient
      *
-     * @throws Exception
+     * @throws \Exception
      */
     public static function getClient($entityName, $apiKey, $userAgent, $environment = self::ENV_PROD)
     {
@@ -47,7 +53,7 @@ class OystApiClientFactory
                 $oystClientAPI = new OystOneClickApi($client, $apiKey, $userAgent);
                 break;
             default:
-                throw new Exception('Entity not managed or do not exist: '.$entityName);
+                throw new \Exception('Entity not managed or do not exist: '.$entityName);
                 break;
         }
 
@@ -58,7 +64,7 @@ class OystApiClientFactory
      * @param string $entityName
      * @param string $environment
      *
-     * @return \Guzzle\Service\Client
+     * @return Client
      */
     private static function createClient($entityName, $environment = self::ENV_PROD)
     {
@@ -71,7 +77,7 @@ class OystApiClientFactory
             $baseUrl = $configurationLoader->getApiUrl().'/'.$description->getApiVersion();
         }
 
-        $client = new \Guzzle\Service\Client($baseUrl);
+        $client = new Client($baseUrl);
         $client->setDescription($description);
 
         return $client;
@@ -83,7 +89,7 @@ class OystApiClientFactory
     private static function getApiConfiguration($entity, $environment)
     {
         $parametersFile = __DIR__.'/../config/parameters.yml';
-        $parserYml      = new \Symfony\Component\Yaml\Parser();
+        $parserYml      = new Parser();
         $configuration  = new OystApiConfiguration($parserYml, $parametersFile);
         $configuration->load();
         $configuration->setEnvironment($environment);
@@ -93,12 +99,12 @@ class OystApiClientFactory
     }
 
     /**
-     * @return \Guzzle\Service\Description\ServiceDescription
+     * @return ServiceDescription
      */
     private static function getApiDescription($entityName)
     {
         $configurationFile = __DIR__.'/../config/description_'.$entityName.'.json';
-        $description       = \Guzzle\Service\Description\ServiceDescription::factory($configurationFile);
+        $description       = ServiceDescription::factory($configurationFile);
 
         return $description;
     }

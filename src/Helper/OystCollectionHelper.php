@@ -10,6 +10,8 @@
  * @license  Copyright 2017, Oyst
  * @link     http://www.oyst.com
  */
+namespace Oyst\Helper;
+
 class OystCollectionHelper
 {
     /**
@@ -17,7 +19,7 @@ class OystCollectionHelper
      *
      * @return array
      */
-    static public function collectionToArray($collection)
+    public static function collectionToArray($collection)
     {
         $data = array();
 
@@ -34,7 +36,7 @@ class OystCollectionHelper
      *
      * @param array $data
      */
-    static public function cleanData(&$data)
+    public static function cleanData(&$data)
     {
         foreach ($data as $field => $value) {
             if (!is_array($value) && !is_integer($value)) {

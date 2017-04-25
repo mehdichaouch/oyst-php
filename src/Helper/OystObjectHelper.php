@@ -10,6 +10,8 @@
  * @license  Copyright 2017, Oyst
  * @link     http://www.oyst.com
  */
+namespace Oyst\Helper;
+
 class OystObjectHelper
 {
     /**
@@ -17,7 +19,7 @@ class OystObjectHelper
      *
      * @return mixed
      */
-    static public function getValue($data)
+    public static function getValue($data)
     {
         $value = isset($data) ? $data : null;
 
@@ -29,7 +31,7 @@ class OystObjectHelper
      *
      * @return \DateTime|null
      */
-    static public function getDate($data)
+    public static function getDate($data)
     {
         $date = isset($data) ? new \DateTime($data) : null;
 

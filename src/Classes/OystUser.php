@@ -10,6 +10,10 @@
  * @license  Copyright 2017, Oyst
  * @link     http://www.oyst.com
  */
+namespace Oyst\Classes;
+
+use Oyst\Helper\OystCollectionHelper;
+
 class OystUser implements OystArrayInterface
 {
     /**
