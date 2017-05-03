@@ -1,5 +1,10 @@
 <?php
 
+namespace Oyst\Api;
+
+use Guzzle\Http\Exception\ClientErrorResponseException;
+use Guzzle\Service\Client;
+
 /**
  * Class AbstractOystApiClient
  *
@@ -8,11 +13,6 @@
  * @license  Copyright 2017, Oyst
  * @link     http://www.oyst.com
  */
-namespace Oyst\Api;
-
-use Guzzle\Http\Exception\ClientErrorResponseException;
-use Guzzle\Service\Client;
-
 abstract class AbstractOystApiClient
 {
     /**
@@ -40,16 +40,20 @@ abstract class AbstractOystApiClient
      */
     private $lastHttpCode;
 
-    /** @var  mixed */
+    /**
+     * @var mixed
+     */
     private $response;
 
-    /** @var  string */
+    /**
+     * @var string
+     */
     private $body;
 
     /**
-     * @param Client    $client
-     * @param string    $apiKey
-     * @param string    $userAgent
+     * @param Client $client
+     * @param string $apiKey
+     * @param string $userAgent
      */
     public function __construct(Client $client, $apiKey, $userAgent)
     {
@@ -59,6 +63,8 @@ abstract class AbstractOystApiClient
     }
 
     /**
+     * Execute the command described in the description_[entityName].json file
+     *
      * @param string $commandName
      * @param array  $params
      *
@@ -67,7 +73,8 @@ abstract class AbstractOystApiClient
     protected function executeCommand($commandName, $params = array())
     {
         $this->response = null;
-        $command  = $this->client->getCommand($commandName, $params);
+
+        $command = $this->client->getCommand($commandName, $params);
 
         try {
             $request = $command->prepare();
@@ -75,11 +82,11 @@ abstract class AbstractOystApiClient
                 'Authorization'  => 'Bearer '.$this->apiKey,
                 'User-Agent'     => $this->userAgent,
             ));
-            $this->response = $command->execute();
 
+            $this->response     = $command->execute();
             $this->lastError    = false;
             $this->lastHttpCode = $command->getResponse() ? $command->getResponse()->getStatusCode() : 200;
-            $this->body = $command->getResponse()->getBody();
+            $this->body         = $command->getResponse()->getBody();
         } catch (ClientErrorResponseException $e) {
             $this->body = $e->getResponse()->getBody(true);
             $responseBody = json_decode($this->body, true);
@@ -103,6 +110,8 @@ abstract class AbstractOystApiClient
     }
 
     /**
+     * Get the error of the last command executed
+     *
      * @return string
      */
     public function getLastError()
@@ -111,6 +120,8 @@ abstract class AbstractOystApiClient
     }
 
     /**
+     * Get the HTTP Status Code of the last command executed
+     *
      * @return int
      */
     public function getLastHttpCode()
@@ -119,6 +130,8 @@ abstract class AbstractOystApiClient
     }
 
     /**
+     * Get the response of the last command executed
+     *
      * @return mixed
      */
     public function getResponse()
@@ -127,6 +140,8 @@ abstract class AbstractOystApiClient
     }
 
     /**
+     * Get the body of the last command executed
+     *
      * @return string
      */
     public function getBody()

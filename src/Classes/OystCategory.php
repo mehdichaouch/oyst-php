@@ -1,17 +1,15 @@
 <?php
 
+namespace Oyst\Classes;
+
 /**
  * Class OystCategory
- *
- * PHP version 5.2
  *
  * @category Oyst
  * @author   Oyst <dev@oyst.com>
  * @license  Copyright 2017, Oyst
  * @link     http://www.oyst.com
  */
-namespace Oyst\Classes;
-
 class OystCategory implements OystArrayInterface
 {
     /**
@@ -38,7 +36,7 @@ class OystCategory implements OystArrayInterface
     /**
      * @param string $ref
      * @param string $title
-     * @param bool   $isMain
+     * @param bool   $main
      */
     public function __construct($ref, $title, $main = false)
     {

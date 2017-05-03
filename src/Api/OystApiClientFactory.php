@@ -1,5 +1,11 @@
 <?php
 
+namespace Oyst\Api;
+
+use Guzzle\Service\Client;
+use Guzzle\Service\Description\ServiceDescription;
+use Symfony\Component\Yaml\Parser;
+
 /**
  * Class OystApiClientFactory
  *
@@ -8,12 +14,6 @@
  * @license  Copyright 2017, Oyst
  * @link     http://www.oyst.com
  */
-namespace Oyst\Api;
-
-use Guzzle\Service\Client;
-use Guzzle\Service\Description\ServiceDescription;
-use Symfony\Component\Yaml\Parser;
-
 class OystApiClientFactory
 {
     const ENTITY_CATALOG  = 'catalog';
@@ -23,10 +23,11 @@ class OystApiClientFactory
 
     const ENV_PROD    = 'prod';
     const ENV_PREPROD = 'preprod';
-    const ENV_INT     = 'integration';
     const ENV_TEST    = 'test';
 
     /**
+     * Returns the right API for the entityName passed in the parameters
+     *
      * @param string $entityName
      * @param string $apiKey
      * @param string $userAgent
@@ -62,6 +63,8 @@ class OystApiClientFactory
     }
 
     /**
+     * Create a Guzzle Client
+     *
      * @param string $entityName
      * @param string $environment
      *
@@ -74,8 +77,8 @@ class OystApiClientFactory
 
         $baseUrl = $configurationLoader->getApiUrl();
 
-        if (!in_array($environment, array(static::ENV_INT))) {
-            $baseUrl = $configurationLoader->getApiUrl().'/'.$description->getApiVersion();
+        if (!in_array($entityName, array(static::ENTITY_PAYMENT))) {
+            $baseUrl .= '/'.$description->getApiVersion();
         }
 
         $client = new Client($baseUrl);
@@ -85,6 +88,11 @@ class OystApiClientFactory
     }
 
     /**
+     * Create the API Configuration by loading parameters according to the environment passed in parameters
+     *
+     * @param string $entity
+     * @param string $environment
+     *
      * @return OystApiConfiguration
      */
     private static function getApiConfiguration($entity, $environment)
@@ -100,6 +108,10 @@ class OystApiClientFactory
     }
 
     /**
+     * Returns a Service Description by loading the right json file according to the entityName passed in parameters
+     *
+     * @param string $entityName
+     *
      * @return ServiceDescription
      */
     private static function getApiDescription($entityName)

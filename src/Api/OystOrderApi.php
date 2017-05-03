@@ -1,5 +1,7 @@
 <?php
 
+namespace Oyst\Api;
+
 /**
  * Class OystOrderApi
  *
@@ -8,8 +10,6 @@
  * @license  Copyright 2017, Oyst
  * @link     http://www.oyst.com
  */
-namespace Oyst\Api;
-
 class OystOrderApi extends AbstractOystApiClient
 {
     const STATUS_ACCEPTED  = 'accepted';
@@ -21,18 +21,18 @@ class OystOrderApi extends AbstractOystApiClient
     const STATUS_FINALIZED = 'finalized';
 
     /**
-     * @param int      $page    1 by default
-     * @param int      $perPage 100 by default
-     * @param string[] statuses Array of available statuses (see constants)
+     * Get oneclick orders (paginated)
+     *
+     * @param int    $limit   10 by default
+     * @param string $status  the order status (see constants)
      *
      * @return mixed
      */
-    public function getOrders($page = 1, $perPage = 100, $status = self::STATUS_ACCEPTED)
+    public function getOrders($limit = 10, $status = self::STATUS_ACCEPTED)
     {
         $data = array(
-            'page'     => $page,
-            'per_page' => $perPage,
-            'status'   => $status
+            'limit'  => $limit,
+            'status' => $status
         );
 
         $response = $this->executeCommand('GetOrderList', $data);
@@ -41,6 +41,8 @@ class OystOrderApi extends AbstractOystApiClient
     }
 
     /**
+     * Get oneclick order
+     *
      * @param $orderId
      *
      * @return string[]|false

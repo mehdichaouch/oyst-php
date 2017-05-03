@@ -1,5 +1,9 @@
 <?php
 
+namespace Oyst\Api;
+
+use Symfony\Component\Yaml\Parser;
+
 /**
  * Class OystApiConfiguration
  *
@@ -8,10 +12,6 @@
  * @license  Copyright 2017, Oyst
  * @link     http://www.oyst.com
  */
-namespace Oyst\Api;
-
-use Symfony\Component\Yaml\Parser;
-
 class OystApiConfiguration
 {
     /** @var string */
@@ -30,8 +30,8 @@ class OystApiConfiguration
     private $entity;
 
     /**
-     * @param Parser    $yamlParser
-     * @param string    $descriptionFile
+     * @param Parser $yamlParser
+     * @param string $descriptionFile
      */
     public function __construct(Parser $yamlParser, $descriptionFile)
     {
@@ -105,7 +105,7 @@ class OystApiConfiguration
     }
 
     /**
-     * @return mixed
+     * @return string|null
      */
     public function getApiUrl()
     {
@@ -117,6 +117,8 @@ class OystApiConfiguration
     }
 
     /**
+     * Load the parameters
+     *
      * @throws \Exception
      *
      * @return $this

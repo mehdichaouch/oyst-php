@@ -1,17 +1,17 @@
 <?php
 
+namespace Oyst\Helper;
+
+use Oyst\Classes\OystArrayInterface;
+
 /**
  * Class OystCollectionHelper
- *
- * PHP version 5.2
  *
  * @category Oyst
  * @author   Oyst <dev@oyst.com>
  * @license  Copyright 2017, Oyst
  * @link     http://www.oyst.com
  */
-namespace Oyst\Helper;
-
 class OystCollectionHelper
 {
     /**
@@ -40,7 +40,7 @@ class OystCollectionHelper
     {
         foreach ($data as $field => $value) {
             if (!is_array($value) && !is_integer($value)) {
-                if (empty($value) || !$value) {
+                if ((empty($value) || !$value) && $value != '0') {
                     unset($data[$field]);
                 }
             }

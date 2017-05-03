@@ -1,18 +1,21 @@
-API Wrapper
-===========
+Oyst PHP API Wrapper
+====================
 
 Build Status
 ------------
-* Latest Release: [![Master Branch](https://travis-ci.org/OystParis/oyst-php.svg?branch=master)](https://travis-ci.org/OystParis/oyst-php)
+Latest Release [![Master Branch](https://travis-ci.org/OystParis/oyst-php.svg?branch=master)](https://travis-ci.org/OystParis/oyst-php)
 
-The class `OystApiClientFactory` is used to get the right client to communicate with the api.
-As we build one class => several methods request call, for now the abstract method is not used to process automatically.
+User Guide
+----------
 
-**Note:** Should be interesting to process it the right way with an abstract method called by the parent like process()
-which is called by a public method access like exec(), start() for example.. )
+The class `OystApiClientFactory` is used to get the right client to communicate with the API.
+
+**Note:** It would be interesting to process it the right way with an abstract method called by the parent like process()
+which is called by a public method access such as exec() or start() for example.
   
 ```php
-OystApiClientFactory::getClient($entityName, $apiKey, $userAgent, env = 'prod');
+/** @var AbstractOystApiClient $apiWrapper */
+$apiWrapper = OystApiClientFactory::getClient($entityName, $apiKey, $userAgent, env = OystApiClientFactory::ENV_PROD);
 ```
   
 This method take several parameters as:
@@ -32,4 +35,9 @@ This method take several parameters as:
 * **env** (constants available in `OystApiClientFactory`), takes 3 values as:
     * prod
     * preprod
-    * integration, (will never be available for merchant)
+    * test (for unit test)
+
+Documentation
+-------------
+
+See the content of the [description_[entityName].json](src/config) files to know in details the payload for each API.

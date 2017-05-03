@@ -1,5 +1,11 @@
 <?php
 
+namespace Oyst\Api;
+
+use Oyst\Classes\OystArrayInterface;
+use Oyst\Classes\OystProduct;
+use Oyst\Helper\OystCollectionHelper;
+
 /**
  * Class OystCatalogApi
  *
@@ -8,14 +14,11 @@
  * @license  Copyright 2017, Oyst
  * @link     http://www.oyst.com
  */
-namespace Oyst\Api;
-
-use Oyst\Classes\OystProduct;
-use Oyst\Helper\OystCollectionHelper;
-
 class OystCatalogApi extends AbstractOystApiClient
 {
     /**
+     * Synchronize the merchant catalog
+     *
      * @param OystProduct[] $oystProducts
      *
      * @return mixed
@@ -39,6 +42,8 @@ class OystCatalogApi extends AbstractOystApiClient
     }
 
     /**
+     * Send a single product (used when the product is created by the merchant)
+     *
      * @param OystProduct $oystProduct
      *
      * @return mixed
@@ -49,6 +54,8 @@ class OystCatalogApi extends AbstractOystApiClient
     }
 
     /**
+     * Update the information of the product (used when the merchant apply some changes to the product)
+     *
      * @param OystProduct $oystProduct
      *
      * @return mixed
@@ -65,14 +72,16 @@ class OystCatalogApi extends AbstractOystApiClient
     }
 
     /**
-     * @param string $oystProductRef
+     * Delete the product
+     *
+     * @param string $productRef The reference of the product to delete
      *
      * @return mixed
      */
-    public function deleteProduct($oystProductRef)
+    public function deleteProduct($productRef)
     {
         $data = array(
-            'id' => $oystProductRef,
+            'id' => $productRef,
         );
         $response = $this->executeCommand('DeleteProduct', $data);
 
@@ -80,6 +89,8 @@ class OystCatalogApi extends AbstractOystApiClient
     }
 
     /**
+     * Notify Oyst that the merchant wants to export its catalog of products
+     *
      * @return mixed
      */
     public function notifyImport()

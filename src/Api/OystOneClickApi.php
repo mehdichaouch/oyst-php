@@ -1,5 +1,9 @@
 <?php
 
+namespace Oyst\Api;
+
+use Oyst\Classes\OystUser;
+
 /**
  * Class OystOneClickApi
  *
@@ -8,11 +12,12 @@
  * @license  Copyright 2017, Oyst
  * @link     http://www.oyst.com
  */
-namespace Oyst\Api;
-
 class OystOneClickApi extends AbstractOystApiClient
 {
     /**
+     * Check if an order can be processed for the selected product / quantity
+     * If it's the case, an order is created (can be retrieved via getOrder(s) method)
+     *
      * @param string        $productRef
      * @param string        $variationRef
      * @param int           $quantity
