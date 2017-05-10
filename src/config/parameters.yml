@@ -1,10 +1,10 @@
 api:
     url:
         preprod:
-            catalog: https://api.staging.oyst.eu/catalog
-            order: https://api.staging.oyst.eu/order
-            payment: https://api.staging.oyst.eu/payment
-            oneclick: https://api.staging.oyst.eu/oneclick
+            catalog: https://api.test1.oyst.eu/catalog
+            order: https://api.test1.oyst.eu/order
+            payment: https://api.test1.oyst.eu/payment
+            oneclick: https://api.test1.oyst.eu/oneclick
         prod:
             catalog: https://api.oyst.com/catalog
             order: https://api.oyst.com/oneclick/order
