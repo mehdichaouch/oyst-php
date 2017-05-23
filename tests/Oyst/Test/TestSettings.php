@@ -49,7 +49,7 @@ class TestSettings
      */
     public function setParameterFile($file)
     {
-        $this->parametersFile = __DIR__.'/../../../src/config/'.$file;
+        $this->parametersFile = __DIR__.'/../../../src/Config/'.$file;
 
         return $this;
     }

@@ -49,7 +49,7 @@ abstract class OystApiContext extends \PHPUnit_Framework_TestCase
     {
         $reflectionMethod = new \ReflectionMethod('Oyst\Api\OystApiClientFactory', 'getApiConfiguration');
         $reflectionMethod->setAccessible(true);
-        $configuration = $reflectionMethod->invoke(null, $entityName, OystApiClientFactory::ENV_TEST);
+        $configuration = $reflectionMethod->invoke(null, $entityName, null, 'https://localhost');
 
         $reflectionMethod = new \ReflectionMethod('Oyst\Api\OystApiClientFactory', 'getApiDescription');
         $reflectionMethod->setAccessible(true);
