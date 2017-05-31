@@ -25,10 +25,23 @@ class OystApiClientFactoryTest extends \PHPUnit_Framework_TestCase
     public function clientUrlData()
     {
         return array(
-            array(OystApiClientFactory::ENTITY_CATALOG, OystApiClientFactory::ENV_TEST, 'https://localhost/catalog/v1'),
-            array(OystApiClientFactory::ENTITY_ORDER, OystApiClientFactory::ENV_TEST, 'https://localhost/order/v1'),
-            array(OystApiClientFactory::ENTITY_ONECLICK, OystApiClientFactory::ENV_TEST, 'https://localhost/oneclick/v1'),
-            array(OystApiClientFactory::ENTITY_PAYMENT, OystApiClientFactory::ENV_TEST, 'https://localhost/payment'),
+            array(OystApiClientFactory::ENTITY_CATALOG, OystApiClientFactory::ENV_PROD, 'https://localhost', 'https://localhost/catalog/v1'),
+            array(OystApiClientFactory::ENTITY_ORDER, null, 'https://localhost', 'https://localhost/order/v1'),
+            array(OystApiClientFactory::ENTITY_ONECLICK, OystApiClientFactory::ENV_PROD, null, 'https://api.oyst.com/oneclick/v1'),
+            array(OystApiClientFactory::ENTITY_PAYMENT, null, 'https://localhost', 'https://localhost/payment'),
+        );
+    }
+
+    /**
+     * DataProvider
+     *
+     * @return array
+     */
+    public function clientUrlDataException()
+    {
+        return array(
+            array(OystApiClientFactory::ENTITY_CATALOG, null, null),
+            array('unknown_entity', null, 'https://localhost'),
         );
     }
 
@@ -40,14 +53,14 @@ class OystApiClientFactoryTest extends \PHPUnit_Framework_TestCase
     public function clientDataOk()
     {
         return array(
-            array('Oyst\Api\OystCatalogApi', 'catalog', 'api_key', 'user_agent', 'preprod'),
-            array('Oyst\Api\OystPaymentApi', 'payment', 'api_key', 'user_agent', 'preprod'),
-            array('Oyst\Api\OystOrderApi', 'order', 'api_key', 'user_agent', 'preprod'),
-            array('Oyst\Api\OystOneClickApi', 'oneclick', 'api_key', 'user_agent', 'preprod'),
-            array('Oyst\Api\OystCatalogApi', 'catalog', 'api_key', 'user_agent', 'unknow_env'),
-            array('Oyst\Api\OystPaymentApi', 'payment', 'api_key', 'user_agent', 'unknow_env'),
-            array('Oyst\Api\OystOrderApi', 'order', 'api_key', 'user_agent', 'unknow_env'),
-            array('Oyst\Api\OystOneClickApi', 'oneclick', 'api_key', 'user_agent', 'unknow_env')
+            array('Oyst\Api\OystCatalogApi', 'catalog', 'api_key', 'user_agent', null, 'https://localhost'),
+            array('Oyst\Api\OystPaymentApi', 'payment', 'api_key', 'user_agent', null, 'https://localhost'),
+            array('Oyst\Api\OystOrderApi', 'order', 'api_key', 'user_agent', null, 'https://localhost'),
+            array('Oyst\Api\OystOneClickApi', 'oneclick', 'api_key', 'user_agent', null, 'https://localhost'),
+            array('Oyst\Api\OystCatalogApi', 'catalog', 'api_key', 'user_agent', null, 'https://localhost'),
+            array('Oyst\Api\OystPaymentApi', 'payment', 'api_key', 'user_agent', null, 'https://localhost'),
+            array('Oyst\Api\OystOrderApi', 'order', 'api_key', 'user_agent', null, 'https://localhost'),
+            array('Oyst\Api\OystOneClickApi', 'oneclick', 'api_key', 'user_agent', null, 'https://localhost')
         );
     }
 
@@ -59,7 +72,7 @@ class OystApiClientFactoryTest extends \PHPUnit_Framework_TestCase
     public function clientDataException()
     {
         return array(
-            array('unknown_entity', 'api_key', 'user_agent', 'preprod')
+            array('unknown_entity', 'api_key', 'user_agent', null, 'https://localhost')
         );
     }
 
@@ -71,13 +84,10 @@ class OystApiClientFactoryTest extends \PHPUnit_Framework_TestCase
     public function configurationData()
     {
         return array(
-            array(OystApiClientFactory::ENTITY_CATALOG, OystApiClientFactory::ENV_TEST, 'catalog', 'test', 'https://localhost/catalog'),
-            array(OystApiClientFactory::ENTITY_ORDER, OystApiClientFactory::ENV_TEST, 'order', 'test', 'https://localhost/order'),
-            array(OystApiClientFactory::ENTITY_PAYMENT, OystApiClientFactory::ENV_TEST, 'payment', 'test', 'https://localhost/payment'),
-            array(OystApiClientFactory::ENTITY_ONECLICK, OystApiClientFactory::ENV_TEST, 'oneclick', 'test', 'https://localhost/oneclick'),
-            array('unknown_entity', OystApiClientFactory::ENV_TEST, null, 'test', null),
-            array(OystApiClientFactory::ENTITY_CATALOG, 'unknown_env', 'catalog', 'prod', 'https://api.oyst.com/catalog'),
-            array('unknown_entity', 'unknown_env', null, 'prod', null),
+            array(OystApiClientFactory::ENTITY_CATALOG, null, 'https://localhost', 'catalog', 'https://localhost/catalog'),
+            array(OystApiClientFactory::ENTITY_ORDER, null, 'https://localhost', 'order', 'https://localhost/order'),
+            array(OystApiClientFactory::ENTITY_PAYMENT, null, 'https://localhost', 'payment', 'https://localhost/payment'),
+            array(OystApiClientFactory::ENTITY_ONECLICK, null, 'https://localhost', 'oneclick', 'https://localhost/oneclick'),
         );
     }
 
@@ -104,20 +114,20 @@ class OystApiClientFactoryTest extends \PHPUnit_Framework_TestCase
     public function descriptionDataException()
     {
         return array(
-            array('unknown_entity')
+            array('unknown_entity'),
         );
     }
 
     /**
      * @dataProvider clientUrlData
      */
-    public function testCreateClient($entityName, $env, $expectedApiUrl)
+    public function testCreateClient($entityName, $env, $url, $expectedApiUrl)
     {
         $reflectionMethod = new ReflectionMethod('Oyst\Api\OystApiClientFactory', 'createClient');
         $reflectionMethod->setAccessible(true);
 
         /** @var Client $client */
-        $client = $reflectionMethod->invoke($entityName, $entityName, $env);
+        $client = $reflectionMethod->invoke(null, $entityName, $env, $url);
 
         $this->assertEquals($client->getBaseUrl(), $expectedApiUrl);
 
@@ -125,11 +135,25 @@ class OystApiClientFactoryTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @dataProvider clientUrlDataException
+     *
+     * @expectedException \Exception
+     */
+    public function testExceptionCreateClient($entityName, $env, $url)
+    {
+        $reflectionMethod = new ReflectionMethod('Oyst\Api\OystApiClientFactory', 'createClient');
+        $reflectionMethod->setAccessible(true);
+
+        /** @var Client $client */
+        $client = $reflectionMethod->invoke(null, $entityName, $env, $url);
+    }
+
+    /**
      * @dataProvider clientDataOk
      */
-    public function testOkGetClient($expectedClassName, $entityName, $apiKey, $userAgent, $env)
+    public function testOkGetClient($expectedClassName, $entityName, $apiKey, $userAgent, $env, $url)
     {
-        $clientApi = OystApiClientFactory::getClient($entityName, $apiKey, $userAgent, $env);
+        $clientApi = OystApiClientFactory::getClient($entityName, $apiKey, $userAgent, $env, $url);
 
         $this->assertInstanceOf($expectedClassName, $clientApi);
     }
@@ -139,23 +163,22 @@ class OystApiClientFactoryTest extends \PHPUnit_Framework_TestCase
      *
      * @expectedException \Exception
      */
-    public function testExceptionGetClient($entityName, $apiKey, $userAgent, $env)
+    public function testExceptionGetClient($entityName, $apiKey, $userAgent, $env, $url)
     {
-        OystApiClientFactory::getClient($entityName, $apiKey, $userAgent, $env);
+        OystApiClientFactory::getClient($entityName, $apiKey, $userAgent, $env, $url);
     }
 
     /**
      * @dataProvider configurationData
      */
-    public function testApiConfiguration($entityName, $env, $expectedEntity, $expectedEnv, $expectedApiUrl)
+    public function testApiConfiguration($entityName, $env, $url, $expectedEntity, $expectedApiUrl)
     {
         $reflectionMethod = new ReflectionMethod('Oyst\Api\OystApiClientFactory', 'getApiConfiguration');
         $reflectionMethod->setAccessible(true);
         /** @var OystApiConfiguration $configuration */
-        $configuration = $reflectionMethod->invoke(null, $entityName, $env);
+        $configuration = $reflectionMethod->invoke(null, $entityName, $env, $url);
 
         $this->assertEquals($configuration->getEntity(), $expectedEntity);
-        $this->assertEquals($configuration->getEnvironment(), $expectedEnv);
         $this->assertEquals($configuration->getApiUrl(), $expectedApiUrl);
     }
 

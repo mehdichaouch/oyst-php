@@ -23,7 +23,6 @@ class OystApiClientFactory
 
     const ENV_PROD    = 'prod';
     const ENV_PREPROD = 'preprod';
-    const ENV_TEST    = 'test';
 
     /**
      * Returns the right API for the entityName passed in the parameters
@@ -31,15 +30,16 @@ class OystApiClientFactory
      * @param string $entityName
      * @param string $apiKey
      * @param string $userAgent
-     * @param string $environment
+     * @param string $env
+     * @param string $url
      *
      * @return AbstractOystApiClient
      *
      * @throws \Exception
      */
-    public static function getClient($entityName, $apiKey, $userAgent, $environment = self::ENV_PROD)
+    public static function getClient($entityName, $apiKey, $userAgent, $env = self::ENV_PROD, $url = null)
     {
-        $client = static::createClient($entityName, $environment);
+        $client = static::createClient($entityName, $env, $url);
 
         switch ($entityName) {
             case self::ENTITY_CATALOG:
@@ -66,13 +66,14 @@ class OystApiClientFactory
      * Create a Guzzle Client
      *
      * @param string $entityName
-     * @param string $environment
+     * @param string $env
+     * @param string $url
      *
      * @return Client
      */
-    private static function createClient($entityName, $environment = self::ENV_PROD)
+    private static function createClient($entityName, $env, $url)
     {
-        $configurationLoader = static::getApiConfiguration($entityName, $environment);
+        $configurationLoader = static::getApiConfiguration($entityName, $env, $url);
         $description = static::getApiDescription($entityName);
 
         $baseUrl = $configurationLoader->getApiUrl();
@@ -88,27 +89,29 @@ class OystApiClientFactory
     }
 
     /**
-     * Create the API Configuration by loading parameters according to the environment passed in parameters
+     * Create the API Configuration by loading parameters according to the env or the url passed in parameters
      *
      * @param string $entity
-     * @param string $environment
+     * @param string $env
+     * @param string $url
      *
      * @return OystApiConfiguration
      */
-    private static function getApiConfiguration($entity, $environment)
+    private static function getApiConfiguration($entity, $env, $url)
     {
         $parametersFile = __DIR__.'/../Config/parameters.yml';
         $parserYml      = new Parser();
         $configuration  = new OystApiConfiguration($parserYml, $parametersFile);
         $configuration->load();
-        $configuration->setEnvironment($environment);
+        $configuration->setEnvironment($env);
+        $configuration->setUrl($url);
         $configuration->setEntity($entity);
 
         return $configuration;
     }
 
     /**
-     * Returns a Service Description by loading the right json file according to the entityName passed in parameters
+     * Returns a Service Description by loading the right JSON file according to the entityName passed in parameters
      *
      * @param string $entityName
      *

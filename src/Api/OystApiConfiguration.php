@@ -14,19 +14,34 @@ use Symfony\Component\Yaml\Parser;
  */
 class OystApiConfiguration
 {
-    /** @var string */
+    /**
+     * @var string
+     */
     private $parametersFile;
 
-    /** @var Parser */
+    /**
+     * @var Parser
+     */
     private $yamlParser;
 
-    /** @var array */
+    /**
+     * @var array
+     */
     private $parameters;
 
-    /** @var string */
+    /**
+     * @var string
+     */
+    private $url;
+
+    /**
+     * @var string
+     */
     private $environment;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     private $entity;
 
     /**
@@ -37,7 +52,26 @@ class OystApiConfiguration
     {
         $this->parametersFile = $descriptionFile;
         $this->yamlParser     = $yamlParser;
-        $this->environment    = OystApiClientFactory::ENV_PROD;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * @param $environment
+     *
+     * @return $this
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
+
+        return $this;
     }
 
     /**
@@ -49,27 +83,15 @@ class OystApiConfiguration
     }
 
     /**
-     * @param $environment
+     * @param string $environment
      *
      * @return $this
      */
     public function setEnvironment($environment)
     {
-        if ($this->isValidEnvironment($environment)) {
-            $this->environment = $environment;
-        }
+        $this->environment = $environment;
 
         return $this;
-    }
-
-    /**
-     * @param string $environment
-     *
-     * @return bool
-     */
-    private function isValidEnvironment($environment)
-    {
-        return isset($this->parameters['api']['url'][$environment]);
     }
 
     /**
@@ -87,33 +109,35 @@ class OystApiConfiguration
      */
     public function setEntity($entity)
     {
-        if ($this->isValidEntity($entity)) {
-            $this->entity = $entity;
+        if (!isset($this->parameters['api']['path'][$entity])) {
+            throw new \Exception('The entity "'.$entity.'" does not exist.');
         }
+
+        $this->entity = $entity;
 
         return $this;
     }
 
     /**
-     * @param string $entity
-     *
-     * @return bool
-     */
-    private function isValidEntity($entity)
-    {
-        return isset($this->parameters['api']['url'][$this->environment][$entity]);
-    }
-
-    /**
      * @return string|null
+     *
+     * @throws \Exception
      */
     public function getApiUrl()
     {
-        if (isset($this->parameters['api']['url'][$this->environment][$this->entity])) {
-            return $this->parameters['api']['url'][$this->environment][$this->entity];
+        $apiUrl = '';
+
+        if (!is_null($this->url)) {
+            $apiUrl = trim($this->url, '/');
+        } elseif (isset($this->parameters['api']['env'][$this->environment])) {
+            $apiUrl = $this->parameters['api']['env'][$this->environment];
+        } else {
+            throw new \Exception('The url was not set for the environment '.$this->environment.'.');
         }
 
-        return null;
+        $apiUrl .= '/'.trim($this->parameters['api']['path'][$this->entity], '/');
+
+        return $apiUrl;
     }
 
     /**
